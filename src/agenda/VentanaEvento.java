@@ -105,8 +105,5 @@ public class VentanaEvento extends JFrame {
     contenedor.add(hrFin);
     
     }
-    public static void main(String[] args) {
-        VentanaEvento ventana=new VentanaEvento();
-        ventana.setVisible(true);
-    }
+    
 }

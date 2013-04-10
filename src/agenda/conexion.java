@@ -24,44 +24,60 @@ import com.sun.rowset.CachedRowSetImpl;
 12	 */
 public class conexion
 {
- 
-	public conexion()
-	{
-		
-		
-	}
- public void Function(String sql)
-  {
-           try
-           {
-                   Class.forName("org.postgresql.Driver");
- 
-                    String url = "jdbc:postgresql://127.0.0.1:5432/agenda";
-                    Connection con = DriverManager.getConnection(url, "postgres","postgres");
-	                    Statement s = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-	                                                      ResultSet.CONCUR_READ_ONLY);
-	 
-                    ResultSet rs= s.executeQuery(sql);
-                     
-	   listar(rs);
-	                    CachedRowSet crs = new CachedRowSetImpl();
-	                    crs.populate(rs);
-	 
-	                    rs.close();
-	                    s.close();
-	                    con.close();
-	 
-                   /// return crs;
- 
-            }
-            catch(Exception e)
-            {
-                   System.out.println(e.getMessage()+"Erroor");
-            }
- 
+private Connection conexion = null;
+public conexion()
+{
+}
+public void estableceConexion()
+{
+        if (conexion != null)
+            return;
+        String url = "jdbc:postgresql://127.0.0.1:5432/agenda";
+        try
+        {
+           Class.forName("org.postgresql.Driver");
           
-    }
-	private static void listar(ResultSet rs)throws SQLException{
+           conexion = DriverManager.getConnection(url,"postgres","postgres");
+           if (conexion !=null){
+               System.out.println("Conexión a base de datos ... Ok");
+           }
+        } catch (Exception e) {
+            System.out.println("Problema al establecer la Conexión a la base de datos 1 ");
+        }
+}
+      
+public void insertarDatos(String nombEven,String fecha,String hrsIni,String hrsFin)
+{
+   /*conexion con = new conexion();
+   con.Function("insert into evento (nombre_evento,fecha,horaini,horafin) values ('"+nombEven+"','"+fecha+"','"+hrsIni+"','"+hrsFin+"')");
+   */
+    estableceConexion();
+    Statement s = null;
+        try
+        {
+                s = conexion.createStatement();
+                int n=s.executeUpdate("insert into evento (nombre_evento,fecha,horaini,horafin) values ('"+nombEven+"','"+fecha+"','"+hrsIni+"','"+hrsFin+"')");
+        }catch (Exception e)
+        {
+            System.out.println("Problema al consultar la base de datos insertar datos ");
+        }
+     cierraConexion();
+        
+}
+
+public void cierraConexion()
+{
+        try
+        {
+            conexion.close();
+        }catch(Exception e)
+        {
+            System.out.println("Problema para cerrar la Conexión a la base de datos ");
+        }
+}            
+
+
+/*private  void listar(ResultSet rs)throws SQLException{
 		System.out.println("");
 		ResultSetMetaData meta = rs.getMetaData();
 		int n = meta.getColumnCount();
@@ -79,19 +95,6 @@ public class conexion
 		}
 		
 	}   
-	public static void main(String org[])
-	{
-                conexion co=new conexion();
-                co.Function("Select * from evento");
-               // co.insertarDatos("'cumple fernando'", "'27-08-2013'", "'8:00'", "'10:00'");
-	}
-        
-        public static void insertarDatos(String nombEven,String fecha,String hrsIni,String hrsFin)
-        {
-            conexion con = new conexion();
-            con.Function("insert into evento (nombre_evento,fecha,horaini,horafin) values ('"+nombEven+"','"+fecha+"','"+hrsIni+"','"+hrsFin+"')");
-            
-        }
-            
-            
+	
+  */
 }
