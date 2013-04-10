@@ -36,8 +36,8 @@ public class conexion
            {
                    Class.forName("org.postgresql.Driver");
  
-                    String url = "jdbc:postgresql://127.0.0.1:5432/Agenda";
-                    Connection con = DriverManager.getConnection(url, "postgres","morase");
+                    String url = "jdbc:postgresql://127.0.0.1:5432/agenda";
+                    Connection con = DriverManager.getConnection(url, "postgres","postgres");
 	                    Statement s = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
 	                                                      ResultSet.CONCUR_READ_ONLY);
 	 

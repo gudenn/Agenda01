@@ -107,5 +107,6 @@ public class VentanaEvento extends JFrame {
     }
     public static void main(String[] args) {
         VentanaEvento ventana=new VentanaEvento();
+        ventana.setVisible(true);
     }
 }
