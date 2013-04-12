@@ -56,7 +56,7 @@ public class VentanaEvento extends JFrame {
     fecha = new TextField();
     hrIni = new TextField();
     hrFin = new TextField();
-    
+    // Titulo
     setTitle("Evento");
     setName("VentanaEvento");
     Container contenedor =  getContentPane();
@@ -72,12 +72,12 @@ public class VentanaEvento extends JFrame {
     contenedor.add(label2);
     label2.setBounds(50, 100, 70, 35);
     
-    label3.setText("Hr inicio:");
+    label3.setText("Hora inicio:");
     label3.setFont(new Font("Arial", Font.PLAIN, 16));
     contenedor.add(label3);
     label3.setBounds(50, 160, 70, 35);
     
-    label4.setText("Hr fin:");
+    label4.setText("Hora fin:");
     label4.setFont(new Font("Arial", Font.PLAIN, 16));
     contenedor.add(label4);
     label4.setBounds(50, 220, 70, 35);
