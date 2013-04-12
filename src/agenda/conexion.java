@@ -37,7 +37,7 @@ public void estableceConexion()
         {
            Class.forName("org.postgresql.Driver");
           
-           conexion = DriverManager.getConnection(url,"postgres","postgres");
+           conexion = DriverManager.getConnection(url,"agil","agil");
            if (conexion !=null){
                System.out.println("Conexión a base de datos ... Ok");
            }
