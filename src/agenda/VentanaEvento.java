@@ -35,7 +35,7 @@ public class VentanaEvento extends JFrame {
         setLocation((d.width/2)-(getWidth()/2),(d.height/2)-(getHeight()/2));
         setVisible(true);
         
-        //accion
+        //accion 56 w
         botonGuardar.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evento){
                 conexion c = new conexion();
