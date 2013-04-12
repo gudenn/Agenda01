@@ -59,7 +59,7 @@ public void insertarDatos(String nombEven,String fecha,String hrsIni,String hrsF
                 int n=s.executeUpdate("insert into evento (nombre_evento,fecha,horaini,horafin) values ('"+nombEven+"','"+fecha+"','"+hrsIni+"','"+hrsFin+"')");
         }catch (Exception e)
         {
-            System.out.println("Problema al consultar la base de datos insertar datos ");
+            System.out.println("Estamos tracreando ");
         }
      cierraConexion();
         
