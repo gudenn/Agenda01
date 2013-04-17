@@ -6,7 +6,7 @@ package agenda;
 
 /**
  *
- * @author SONY
+ * @author SONY XP
  */
 public class Agenda {
 

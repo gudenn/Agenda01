@@ -20,7 +20,7 @@ import javax.sql.rowset.CachedRowSet;
 import com.sun.rowset.CachedRowSetImpl;
 	/**
 	 *
-	 * @author beastieux
+	 * @author beastieux x
 12	 */
 public class conexion
 {
