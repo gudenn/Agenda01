@@ -12,6 +12,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.SimpleDateFormat;
+import javax.swing.text.DateFormatter;
+
+
 
 public class VentanaEvento extends JFrame {
 
@@ -22,9 +26,10 @@ public class VentanaEvento extends JFrame {
     private JButton botonGuardar;
     private JButton botonCancelar;
     private TextField nombre;
-    private TextField fecha;
+    //private TextField fecha;
     private TextField hrIni;
     private TextField hrFin;
+    JFormattedTextField fecha = new JFormattedTextField(new SimpleDateFormat("dd/MM/yyyy")); 
     
     public VentanaEvento(){
         iniciarComponentes();
@@ -37,13 +42,8 @@ public class VentanaEvento extends JFrame {
         
         //accion 56 w
         //echo Revisado modificado
-        botonGuardar.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evento){
-                conexion c = new conexion();
-                c.insertarDatos(nombre.getText(),fecha.getText(),hrIni.getText(),hrFin.getText());
-                
-            }
-        });
+        MiEvento evento=new MiEvento();
+        botonGuardar.addActionListener(evento);
     }
     
     private void iniciarComponentes(){
@@ -54,7 +54,7 @@ public class VentanaEvento extends JFrame {
     botonGuardar = new JButton();
     botonCancelar = new JButton();
     nombre = new TextField();
-    fecha = new TextField();
+//    fecha = new TextField();
     hrIni = new TextField();
     hrFin = new TextField();
     // Titulo
@@ -104,7 +104,30 @@ public class VentanaEvento extends JFrame {
     
     hrFin.setBounds(120, 230, 150, 20);
     contenedor.add(hrFin);
+    }
+    public void validar_y_guardar()
+    {
+        
+      if(nombre.getText().trim().length()==0)
+        {
+         JOptionPane.showMessageDialog(this, "El nombre del evento esta vacio");
+        } else{ 
+         conexion c = new conexion();
+         c.insertarDatos(nombre.getText(),fecha.getText(),hrIni.getText(),hrFin.getText());
+      }
+      }
     
+ class MiEvento implements ActionListener{
+	
+  public void actionPerformed( ActionEvent e ){
+			
+  
+    if( e.getSource().equals( botonGuardar ) )
+    {
+       validar_y_guardar();
     }
     
+  }
+			
+}
 }
