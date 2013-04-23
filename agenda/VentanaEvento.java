@@ -8,6 +8,7 @@ package agenda;
  *
  * @author Jorge
  */
+import com.toedter.calendar.JDateChooser;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -19,6 +20,12 @@ import javax.swing.text.DateFormatter;
 
 public class VentanaEvento extends JFrame {
 
+    private com.toedter.calendar.JDateChooser fecha;
+    private javax.swing.JSpinner hora_ini;
+    private javax.swing.JSpinner minuto_ini;
+    private javax.swing.JSpinner hora_fin;
+    private javax.swing.JSpinner minuto_fin;
+    
     private JLabel label1;
     private JLabel label2;
     private JLabel label3;
@@ -27,9 +34,8 @@ public class VentanaEvento extends JFrame {
     private JButton botonCancelar;
     private TextField nombre;
     //private TextField fecha;
-    private TextField hrIni;
-    private TextField hrFin;
-    JFormattedTextField fecha = new JFormattedTextField(new SimpleDateFormat("dd/MM/yyyy")); 
+    
+     
     
     public VentanaEvento(){
         iniciarComponentes();
@@ -54,9 +60,13 @@ public class VentanaEvento extends JFrame {
     botonGuardar = new JButton();
     botonCancelar = new JButton();
     nombre = new TextField();
-//    fecha = new TextField();
-    hrIni = new TextField();
-    hrFin = new TextField();
+
+    fecha = new JDateChooser();
+    hora_ini= new JSpinner();
+    minuto_ini= new JSpinner();
+    hora_fin= new JSpinner();
+    minuto_fin= new JSpinner();
+    
     // Titulo
     setTitle("Evento");
     setName("VentanaEvento");
@@ -99,11 +109,15 @@ public class VentanaEvento extends JFrame {
     fecha.setBounds(120, 110, 150, 20);
     contenedor.add(fecha);
     
-    hrIni.setBounds(120, 170, 150, 20);
-    contenedor.add(hrIni);
+    hora_ini.setBounds(120, 170, 40, 20);
     
-    hrFin.setBounds(120, 230, 150, 20);
-    contenedor.add(hrFin);
+    contenedor.add(hora_ini);
+    minuto_ini.setBounds(180, 170, 40, 20);
+    contenedor.add(minuto_ini);
+    hora_fin.setBounds(120, 230, 40, 20);
+    contenedor.add(hora_fin);
+    minuto_fin.setBounds(180, 230, 40, 20);
+    contenedor.add(minuto_fin);
     }
     public void validar_y_guardar()
     {
@@ -113,7 +127,7 @@ public class VentanaEvento extends JFrame {
          JOptionPane.showMessageDialog(this, "El nombre del evento esta vacio");
         } else{ 
          conexion c = new conexion();
-         c.insertarDatos(nombre.getText(),fecha.getText(),hrIni.getText(),hrFin.getText());
+         c.insertarDatos(nombre.getText(),fecha.getDateFormatString(),hora_ini.getName(),hora_fin.getName());
       }
       }
     
