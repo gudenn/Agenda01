@@ -19,7 +19,7 @@ import javax.swing.text.DateFormatter;
 
 
 public class VentanaEvento extends JFrame {
-
+    private java.text.SimpleDateFormat sdf=new java.text.SimpleDateFormat("dd/MM/yyyy");  
     private com.toedter.calendar.JDateChooser fecha;
     private javax.swing.JSpinner hora_ini;
     private javax.swing.JSpinner minuto_ini;
@@ -50,6 +50,7 @@ public class VentanaEvento extends JFrame {
         //echo Revisado modificado
         MiEvento evento=new MiEvento();
         botonGuardar.addActionListener(evento);
+        
     }
     
     private void iniciarComponentes(){
@@ -62,10 +63,10 @@ public class VentanaEvento extends JFrame {
     nombre = new TextField();
 
     fecha = new JDateChooser();
-    hora_ini= new JSpinner();
-    minuto_ini= new JSpinner();
-    hora_fin= new JSpinner();
-    minuto_fin= new JSpinner();
+    hora_ini= new JSpinner(new SpinnerNumberModel( 0, 0, 24, 1 ));
+    minuto_ini= new JSpinner(new SpinnerNumberModel( 0, 0, 24, 1 ));
+    hora_fin= new JSpinner(new SpinnerNumberModel( 0, 0, 60, 1 ));
+    minuto_fin= new JSpinner(new SpinnerNumberModel( 0, 0, 60, 1 ));
     
     // Titulo
     setTitle("Evento");
@@ -125,10 +126,23 @@ public class VentanaEvento extends JFrame {
       if(nombre.getText().trim().length()==0)
         {
          JOptionPane.showMessageDialog(this, "El nombre del evento esta vacio");
-        } else{ 
+        } else{
+         String hrs_ini=""+hora_ini.getValue()+":"+minuto_ini.getValue(); 
+         String hrs_fin=""+hora_fin.getValue()+":"+minuto_fin.getValue();
+         String date=sdf.format(fecha.getDate());
+         System.out.println(date+" "+hrs_ini+" "+hrs_fin);
          conexion c = new conexion();
-         c.insertarDatos(nombre.getText(),fecha.getDateFormatString(),hora_ini.getName(),hora_fin.getName());
+         c.insertarDatos(nombre.getText(),date,hrs_ini,hrs_fin);
       }
+      if(((int)hora_ini.getValue())>((int)hora_fin.getValue()))
+        {
+         JOptionPane.showMessageDialog(this, "la hora de finalizacion del evento es menor que la hora de inicio");
+        } else{ 
+         //conexion c = new conexion();
+         //c.insertarDatos(nombre.getText(),fecha.getDateFormatString(),hora_ini.getName(),hora_fin.getName());
+      }
+      
+      
       }
     
  class MiEvento implements ActionListener{
