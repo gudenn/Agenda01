@@ -32,7 +32,7 @@ public void estableceConexion()
 {
         if (conexion != null)
             return;
-        String url = "jdbc:postgresql://127.0.0.1:5432/agenda";
+        String url = "jdbc:postgresql://127.0.0.1:5432/Agenda";
         try
         {
            Class.forName("org.postgresql.Driver");
@@ -42,7 +42,7 @@ public void estableceConexion()
                System.out.println("Conexión a base de datos ... Ok");
            }
         } catch (Exception e) {
-            System.out.println("Problema al establecer la Conexión a la base de datos 1 ");
+            System.out.println("Problema al establecer la Conexión a la base de datos 1 " + e.getMessage() );
         }
 }
       
