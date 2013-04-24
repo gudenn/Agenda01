@@ -126,6 +126,7 @@ public class VentanaEvento extends JFrame {
     }
     public void validar_y_guardar()
     {
+      /*
       System.out.println(fecha.isValidateRoot());  
       if(nombre.getText().trim().length()==0)
         {
@@ -141,16 +142,22 @@ public class VentanaEvento extends JFrame {
                 String hrs_fin=""+hora_fin.getValue()+":"+minuto_fin.getValue();
                 String date=sdf.format(fecha.getDate());
                 System.out.println(date+" "+hrs_ini+" "+hrs_fin);
-                conexion c = new conexion();
-                c.insertarDatos(nombre.getText(),date,hrs_ini,hrs_fin);
+                Operaciones o = new Operaciones();
+                o.insertarDatos(nombre.getText(),date,hrs_ini,hrs_fin);
             }
           }else{
               JOptionPane.showMessageDialog(this, "la fecha no es valida");
             
           }
+          * */
+          String hrs_ini=""+hora_ini.getValue()+":"+minuto_ini.getValue(); 
+                String hrs_fin=""+hora_fin.getValue()+":"+minuto_fin.getValue();
+                String date=sdf.format(fecha.getDate());
+                System.out.println(date+" "+hrs_ini+" "+hrs_fin);
+                Operaciones o = new Operaciones();
+                o.insertarDatos(nombre.getText(),date,hrs_ini,hrs_fin);
           
-          
-        } 
+        
       
       
       }

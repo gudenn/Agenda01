@@ -4,97 +4,43 @@
  */
 package agenda;
 
-/**
- *
- * @author SONY
- */
-
-
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.ResultSet;
-import javax.sql.rowset.CachedRowSet;
-import com.sun.rowset.CachedRowSetImpl;
-	/**
-	 *
-	 * @author beastieux x
-12	 */
-public class conexion
-{
-private Connection conexion = null;
-public conexion()
-{
-}
-public void estableceConexion()
-{
-        if (conexion != null)
-            return;
-        String url = "jdbc:postgresql://127.0.0.1:5432/Agenda";
-        try
-        {
-           Class.forName("org.postgresql.Driver");
-          
-           conexion = DriverManager.getConnection(url,"agil","agil");
-           if (conexion !=null){
-               System.out.println("Conexión a base de datos ... Ok");
-           }
-        } catch (Exception e) {
-            System.out.println("Problema al establecer la Conexión a la base de datos 1 " + e.getMessage() );
-        }
-}
-      
-public void insertarDatos(String nombEven,String fecha,String hrsIni,String hrsFin)
-{
-   /*conexion con = new conexion();
-   con.Function("insert into evento (nombre_evento,fecha,horaini,horafin) values ('"+nombEven+"','"+fecha+"','"+hrsIni+"','"+hrsFin+"')");
-   */
-    estableceConexion();
-    Statement s = null;
-        try
-        {
-                s = conexion.createStatement();
-                int n=s.executeUpdate("insert into evento (nombre_evento,fecha,horaini,horafin) values ('"+nombEven+"','"+fecha+"','"+hrsIni+"','"+hrsFin+"')");
-        }catch (Exception e)
-        {
-            System.out.println("Estamos tracreando ");
-        }
-     cierraConexion();
-        
-}
+import javax.swing.JOptionPane;
+/**
+ * Write a description of class Conexion here.
+ * 
+ * @author Rey Salcedo 
+ * @version (a version number or a date)
+ */
+public class Conexion{
+	Connection conexion;
+	Statement consulta;
+	public String ruta;
 
-public void cierraConexion()
-{
-        try
-        {
-            conexion.close();
-        }catch(Exception e)
-        {
-            System.out.println("Problema para cerrar la Conexión a la base de datos ");
-        }
-}            
-
-
-/*private  void listar(ResultSet rs)throws SQLException{
-		System.out.println("");
-		ResultSetMetaData meta = rs.getMetaData();
-		int n = meta.getColumnCount();
-		
-		for(int i = 1; i<=n; i++){
-			System.out.println(meta.getColumnName(i)+"\t");
-			
-		}
-		System.err.println("\t");
-		
-		while(rs.next()){
-			System.out.println(rs.getString(1)+"\t");
-			System.out.println(rs.getString(2)+"\t");
-			System.out.println("\n");
-		}
-		
-	}   
-	
-  */
+    /**
+     * Constructor for objects of class Conexion
+     */
+    public Conexion()
+    {
+        ruta = "c:/Users/hp/Documents/UMSS - Agiles/Beta 10/agenda/build/classes/BD/registro.db";
+        //ruta = "../BD/registro.db";
+    }
+    public void conectar(){
+		try {
+	            Class.forName("org.sqlite.JDBC");
+	        }
+	        catch (ClassNotFoundException e) {
+	            JOptionPane.showMessageDialog(null, e.getMessage());
+	        }	 
+			try {
+                            conexion = DriverManager.getConnection("jdbc:sqlite:"+ruta);
+                            consulta = conexion.createStatement();
+			} catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, e.getMessage());
+                        }
+	}
+    
 }
