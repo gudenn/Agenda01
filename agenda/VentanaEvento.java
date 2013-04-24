@@ -14,6 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.text.DateFormatter;
 
 
@@ -108,11 +109,14 @@ public class VentanaEvento extends JFrame {
     contenedor.add(nombre);
     
     fecha.setBounds(120, 110, 150, 20);
+    Date d=new Date();
+    fecha.setMinSelectableDate(d);
+   
     contenedor.add(fecha);
     
     hora_ini.setBounds(120, 170, 40, 20);
     
-    contenedor.add(hora_ini);
+    contenedor.add(hora_ini);      
     minuto_ini.setBounds(180, 170, 40, 20);
     contenedor.add(minuto_ini);
     hora_fin.setBounds(120, 230, 40, 20);
@@ -122,25 +126,31 @@ public class VentanaEvento extends JFrame {
     }
     public void validar_y_guardar()
     {
-        
+      System.out.println(fecha.isValidateRoot());  
       if(nombre.getText().trim().length()==0)
         {
          JOptionPane.showMessageDialog(this, "El nombre del evento esta vacio");
         } else{
-         String hrs_ini=""+hora_ini.getValue()+":"+minuto_ini.getValue(); 
-         String hrs_fin=""+hora_fin.getValue()+":"+minuto_fin.getValue();
-         String date=sdf.format(fecha.getDate());
-         System.out.println(date+" "+hrs_ini+" "+hrs_fin);
-         conexion c = new conexion();
-         c.insertarDatos(nombre.getText(),date,hrs_ini,hrs_fin);
-      }
-      if(((int)hora_ini.getValue())>((int)hora_fin.getValue()))
-        {
-         JOptionPane.showMessageDialog(this, "la hora de finalizacion del evento es menor que la hora de inicio");
-        } else{ 
-         //conexion c = new conexion();
-         //c.insertarDatos(nombre.getText(),fecha.getDateFormatString(),hora_ini.getName(),hora_fin.getName());
-      }
+          if(fecha.isValidateRoot()){
+          if(((int)hora_ini.getValue())>((int)hora_fin.getValue()))
+            {
+              JOptionPane.showMessageDialog(this, "la hora de finalizacion del evento es menor que la hora de inicio");
+            } else{             
+                         
+                String hrs_ini=""+hora_ini.getValue()+":"+minuto_ini.getValue(); 
+                String hrs_fin=""+hora_fin.getValue()+":"+minuto_fin.getValue();
+                String date=sdf.format(fecha.getDate());
+                System.out.println(date+" "+hrs_ini+" "+hrs_fin);
+                conexion c = new conexion();
+                c.insertarDatos(nombre.getText(),date,hrs_ini,hrs_fin);
+            }
+          }else{
+              JOptionPane.showMessageDialog(this, "la fecha no es valida");
+            
+          }
+          
+          
+        } 
       
       
       }
