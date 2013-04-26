@@ -6,7 +6,7 @@ package agenda;
 
 /**
  *
- * @author Jorges
+ * @author Jorge
  */
 import com.toedter.calendar.JDateChooser;
 import javax.swing.*;
