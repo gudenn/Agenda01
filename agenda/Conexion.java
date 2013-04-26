@@ -25,7 +25,7 @@ public class Conexion{
      */
     public Conexion()
     {
-        ruta = "c:/Users/hp/Documents/UMSS - Agiles/Beta 10/agenda/build/classes/BD/registro.db";
+        ruta = "registro.db";
         //ruta = "../BD/registro.db";
     }
     public void conectar(){
