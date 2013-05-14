@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class GUI extends javax.swing.JFrame {
     Operaciones operaciones;
     Panel_eventos panel_buscar_evento;
-    
+    VentanaEvento crear_evento;
     private java.text.SimpleDateFormat sdf=new java.text.SimpleDateFormat("dd/MM/yyyy");  
 
     /**
@@ -29,39 +29,15 @@ public class GUI extends javax.swing.JFrame {
         operaciones = new Operaciones();
         operaciones.conectar();
         panel_buscar_evento=new Panel_eventos();
-        
+        crear_evento=new VentanaEvento();
         init();
-        init_agregar_evento();
-    }
-    public void init_agregar_evento()
-    {
-        MiEvento evento=new MiEvento();
-        botonGuardar.addActionListener(evento);
-        hora_fin.addActionListener(evento);
-        minuto_fin.addActionListener(evento);
-        botonCancelar.addActionListener(evento);
         
-        fecha.setVerifyInputWhenFocusTarget(true);
-/*
-//        hora_fin.removeAllItems();
-        hora_fin.addItem("--");
-    for(int h=0;h<24;h++)
-    {
-    hora_fin.addItem(h);
-    hora_ini.addItem(h);
-    }
-  //  minuto_fin.removeAllItems();
-    minuto_fin.addItem("--");
-    for(int m=0;m<60;m++)
-    {
-    minuto_fin.addItem(m);
-    minuto_ini.addItem(m);
-    }*/
     }
  public void init()
  {
      jTabbedPane1.add("Buscar eventos",panel_buscar_evento);
-     
+     jTabbedPane1.add("Agregar Evento",crear_evento);
+
  }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -90,19 +66,6 @@ public class GUI extends javax.swing.JFrame {
         jTPersonas = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        nombre = new javax.swing.JTextField();
-        fecha = new com.toedter.calendar.JDateChooser();
-        botonCancelar = new javax.swing.JButton();
-        botonGuardar = new javax.swing.JButton();
-        hora_ini = new javax.swing.JComboBox();
-        minuto_ini = new javax.swing.JComboBox();
-        hora_fin = new javax.swing.JComboBox();
-        minuto_fin = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -241,110 +204,6 @@ public class GUI extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Lista de personas", jPanel2);
 
-        jLabel6.setText("Nombre");
-
-        jLabel7.setText("Fecha");
-
-        jLabel8.setText("Hora inicio");
-
-        jLabel9.setText("Hora fin");
-
-        nombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreActionPerformed(evt);
-            }
-        });
-
-        botonCancelar.setText("Cancelar");
-        botonCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonCancelarActionPerformed(evt);
-            }
-        });
-
-        botonGuardar.setText("Guardar");
-
-        hora_ini.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
-        hora_ini.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hora_iniActionPerformed(evt);
-            }
-        });
-
-        minuto_ini.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                minuto_iniActionPerformed(evt);
-            }
-        });
-
-        hora_fin.setModel(new javax.swing.DefaultComboBoxModel(new String[] {  }));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9))
-                        .addGap(65, 65, 65)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(hora_ini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(hora_fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(42, 42, 42)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(minuto_fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(minuto_ini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(botonCancelar)
-                        .addGap(43, 43, 43)
-                        .addComponent(botonGuardar)))
-                .addContainerGap(303, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7)
-                    .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(hora_ini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(minuto_ini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel9))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(hora_fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(minuto_fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonCancelar)
-                    .addComponent(botonGuardar))
-                .addContainerGap(57, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Agregar Evnto", jPanel3);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -364,13 +223,16 @@ public class GUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void limpiar(){
-        jTFId.setText("");
-        jTFPrimerApellido.setText("");
-        jTFPrimerNombre.setText("");
-        jTFSegundoApellido.setText("");
-        jTFSegundoNombre.setText("");
-    }
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        operaciones.insertar("delete from Persona");
+        operaciones.totalPersonas((DefaultTableModel)jTPersonas.getModel());
+}//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        operaciones.totalPersonas((DefaultTableModel)jTPersonas.getModel());
+}//GEN-LAST:event_jButton1ActionPerformed
+
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         try{
             int id = Integer.parseInt(jTFId.getText());
@@ -383,33 +245,14 @@ public class GUI extends javax.swing.JFrame {
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null,"Error:"+ex.getMessage()+"\nVerifique");
         }
-    }//GEN-LAST:event_jBGuardarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        operaciones.totalPersonas((DefaultTableModel)jTPersonas.getModel());
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        operaciones.insertar("delete from Persona");
-        operaciones.totalPersonas((DefaultTableModel)jTPersonas.getModel());
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreActionPerformed
-
-    private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonCancelarActionPerformed
-
-    private void hora_iniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hora_iniActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hora_iniActionPerformed
-
-    private void minuto_iniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minuto_iniActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_minuto_iniActionPerformed
-
+}//GEN-LAST:event_jBGuardarActionPerformed
+    private void limpiar(){
+        jTFId.setText("");
+        jTFPrimerApellido.setText("");
+        jTFPrimerNombre.setText("");
+        jTFSegundoApellido.setText("");
+        jTFSegundoNombre.setText("");
+    }
     /**
      * @param args the command line arguments
      */
@@ -452,11 +295,6 @@ public class GUI extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonCancelar;
-    private javax.swing.JButton botonGuardar;
-    private com.toedter.calendar.JDateChooser fecha;
-    private javax.swing.JComboBox hora_fin;
-    private javax.swing.JComboBox hora_ini;
     private javax.swing.JButton jBGuardar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -465,13 +303,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFId;
     private javax.swing.JTextField jTFPrimerApellido;
@@ -480,94 +313,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTFSegundoNombre;
     private javax.swing.JTable jTPersonas;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JComboBox minuto_fin;
-    private javax.swing.JComboBox minuto_ini;
-    private javax.swing.JTextField nombre;
     // End of variables declaration//GEN-END:variables
-public void validar_y_guardar()
-    {
-      
-      System.out.println(fecha.isValidateRoot());  
-      if(nombre.getText().trim().length()==0)
-        {
-         JOptionPane.showMessageDialog(this, "El nombre del evento esta vacio");
-        } else{
-         if(((hora_fin.getSelectedItem().equals("--")))){
-                String hrs_ini=""+hora_ini.getSelectedItem()+":"+minuto_ini.getSelectedItem(); 
-                String hrs_fin=""+hora_fin.getSelectedItem()+":"+minuto_fin.getSelectedItem();
-             try{
-                String date=sdf.format(fecha.getDate());
-                System.out.println(date+" "+hrs_ini+" "+hrs_fin);
-                Operaciones o = new Operaciones();
-                o.insertarDatos(nombre.getText(),date,hrs_ini,hrs_fin);
-             }catch( Exception e){
-             JOptionPane.showMessageDialog(this, "la fecha no es valida");
-            
-             }
-         }else{
-         if(((int)hora_ini.getSelectedItem())>((int)hora_fin.getSelectedItem()))
-            {
-              JOptionPane.showMessageDialog(this, "la hora de finalizacion del evento es menor que la hora de inicio");
-            } else{             
-                            
-                String hrs_ini=""+hora_ini.getSelectedItem()+":"+minuto_ini.getSelectedItem(); 
-                String hrs_fin=""+hora_fin.getSelectedItem()+":"+minuto_fin.getSelectedItem();
-             try{
-                String date=sdf.format(fecha.getDate());
-                System.out.println(date+" "+hrs_ini+" "+hrs_fin);
-                Operaciones o = new Operaciones();
-                o.insertarDatos(nombre.getText(),date,hrs_ini,hrs_fin);
-             }catch( Exception e){
-             JOptionPane.showMessageDialog(this, "la fecha no es valida");
-            
-             }
-             }
-         } 
-          
-          
-              
-       
-        
-      
-      
-      }
-    }
-    public void cerrar(){
-    System.exit(1);
-    }
-    class MiEvento implements ActionListener{
-	
-  public void actionPerformed( ActionEvent e ){
-			
-  
-    if( e.getSource().equals( botonGuardar ) )
-    {
-       validar_y_guardar();
-    }
-    if( e.getSource().equals( botonCancelar ) )
-    {
-       
-       cerrar();
-    }
-    if(e.getSource().equals(hora_fin))
-    {
-      if(hora_fin.getSelectedItem().equals("--"))
-       {
-         minuto_fin.setSelectedIndex(0);
-        }else{
-         minuto_fin.setSelectedIndex(1);
-        }   
-    }
-    if(e.getSource().equals(minuto_fin))
-    {
-      if(minuto_fin.getSelectedItem().equals("--"))
-       {
-         hora_fin.setSelectedIndex(0);
-        }else{
-         hora_fin.setSelectedIndex(1);
-        }   
-    }
-  }
-			
-}
+
+ 	
+ 
 }
