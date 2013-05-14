@@ -25,8 +25,8 @@ public class Conexion{
      */
     public Conexion()
     {
-        ruta = "registro.db";
-        //ruta = "../BD/registro.db";
+        //ruta = "registro.db";
+        ruta = "BD/registro.db";
     }
     public void conectar(){
 		try {

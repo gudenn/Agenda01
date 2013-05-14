@@ -9,12 +9,14 @@ package agenda;
  * @author Jorge
  */
 import com.toedter.calendar.JDateChooser;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimerTask;
 import javax.swing.text.DateFormatter;
 
 
@@ -22,10 +24,10 @@ import javax.swing.text.DateFormatter;
 public class VentanaEvento extends JFrame {
     private java.text.SimpleDateFormat sdf=new java.text.SimpleDateFormat("dd/MM/yyyy");  
     private com.toedter.calendar.JDateChooser fecha;
-    private javax.swing.JSpinner hora_ini;
-    private javax.swing.JSpinner minuto_ini;
-    private javax.swing.JSpinner hora_fin;
-    private javax.swing.JSpinner minuto_fin;
+    private javax.swing.JComboBox hora_ini;
+    private javax.swing.JComboBox minuto_ini;
+    private javax.swing.JComboBox hora_fin;
+    private javax.swing.JComboBox minuto_fin;
     
     private JLabel label1;
     private JLabel label2;
@@ -35,6 +37,7 @@ public class VentanaEvento extends JFrame {
     private JButton botonCancelar;
     private TextField nombre;
     //private TextField fecha;
+    //AtTimeField a;
     
      
     
@@ -46,12 +49,14 @@ public class VentanaEvento extends JFrame {
         setSize(d.width/3, d.height/2);
         setLocation((d.width/2)-(getWidth()/2),(d.height/2)-(getHeight()/2));
         setVisible(true);
-        
+           
         //accion 56 w
         //echo Revisado modificado
         MiEvento evento=new MiEvento();
         botonGuardar.addActionListener(evento);
-        
+        hora_fin.addActionListener(evento);
+        minuto_fin.addActionListener(evento);
+        botonCancelar.addActionListener(evento);
     }
     
     private void iniciarComponentes(){
@@ -64,11 +69,24 @@ public class VentanaEvento extends JFrame {
     nombre = new TextField();
 
     fecha = new JDateChooser();
-    hora_ini= new JSpinner(new SpinnerNumberModel( 0, 0, 24, 1 ));
-    minuto_ini= new JSpinner(new SpinnerNumberModel( 0, 0, 24, 1 ));
-    hora_fin= new JSpinner(new SpinnerNumberModel( 0, 0, 60, 1 ));
-    minuto_fin= new JSpinner(new SpinnerNumberModel( 0, 0, 60, 1 ));
     
+    hora_ini= new JComboBox();
+    
+    hora_fin= new JComboBox();
+    hora_fin.addItem("--");
+    for(int h=0;h<24;h++)
+    {
+    hora_fin.addItem(h);
+    hora_ini.addItem(h);
+    }
+    minuto_ini= new JComboBox();
+    minuto_fin= new JComboBox();
+    minuto_fin.addItem("--");
+    for(int m=0;m<60;m++)
+    {
+    minuto_fin.addItem(m);
+    minuto_ini.addItem(m);
+    }
     // Titulo
     setTitle("Evento");
     setName("VentanaEvento");
@@ -109,6 +127,9 @@ public class VentanaEvento extends JFrame {
     contenedor.add(nombre);
     
     fecha.setBounds(120, 110, 150, 20);
+    //fecha.setFocusable(true);
+    //fecha.setFocusTraversalKeysEnabled(true);
+    fecha.setVerifyInputWhenFocusTarget(true);
     Date d=new Date();
     fecha.setMinSelectableDate(d);
    
@@ -120,48 +141,62 @@ public class VentanaEvento extends JFrame {
     minuto_ini.setBounds(180, 170, 40, 20);
     contenedor.add(minuto_ini);
     hora_fin.setBounds(120, 230, 40, 20);
+    
     contenedor.add(hora_fin);
     minuto_fin.setBounds(180, 230, 40, 20);
     contenedor.add(minuto_fin);
     }
     public void validar_y_guardar()
     {
-      /*
+      
       System.out.println(fecha.isValidateRoot());  
       if(nombre.getText().trim().length()==0)
         {
          JOptionPane.showMessageDialog(this, "El nombre del evento esta vacio");
         } else{
-          if(fecha.isValidateRoot()){
-          if(((int)hora_ini.getValue())>((int)hora_fin.getValue()))
+         if(((hora_fin.getSelectedItem().equals("--")))){
+                String hrs_ini=""+hora_ini.getSelectedItem()+":"+minuto_ini.getSelectedItem(); 
+                String hrs_fin=""+hora_fin.getSelectedItem()+":"+minuto_fin.getSelectedItem();
+             try{
+                String date=sdf.format(fecha.getDate());
+                System.out.println(date+" "+hrs_ini+" "+hrs_fin);
+                Operaciones o = new Operaciones();
+                o.insertarDatos(nombre.getText(),date,hrs_ini,hrs_fin);
+             }catch( Exception e){
+             JOptionPane.showMessageDialog(this, "la fecha no es valida");
+            
+             }
+         }else{
+         if(((int)hora_ini.getSelectedItem())>((int)hora_fin.getSelectedItem()))
             {
               JOptionPane.showMessageDialog(this, "la hora de finalizacion del evento es menor que la hora de inicio");
             } else{             
-                         
-                String hrs_ini=""+hora_ini.getValue()+":"+minuto_ini.getValue(); 
-                String hrs_fin=""+hora_fin.getValue()+":"+minuto_fin.getValue();
+                            
+                String hrs_ini=""+hora_ini.getSelectedItem()+":"+minuto_ini.getSelectedItem(); 
+                String hrs_fin=""+hora_fin.getSelectedItem()+":"+minuto_fin.getSelectedItem();
+             try{
                 String date=sdf.format(fecha.getDate());
                 System.out.println(date+" "+hrs_ini+" "+hrs_fin);
                 Operaciones o = new Operaciones();
                 o.insertarDatos(nombre.getText(),date,hrs_ini,hrs_fin);
-            }
-          }else{
-              JOptionPane.showMessageDialog(this, "la fecha no es valida");
+             }catch( Exception e){
+             JOptionPane.showMessageDialog(this, "la fecha no es valida");
             
-          }
-          * */
-          String hrs_ini=""+hora_ini.getValue()+":"+minuto_ini.getValue(); 
-                String hrs_fin=""+hora_fin.getValue()+":"+minuto_fin.getValue();
-                String date=sdf.format(fecha.getDate());
-                System.out.println(date+" "+hrs_ini+" "+hrs_fin);
-                Operaciones o = new Operaciones();
-                o.insertarDatos(nombre.getText(),date,hrs_ini,hrs_fin);
+             }
+             }
+         } 
           
+          
+              
+       
         
       
       
       }
-    
+    }
+    public void cerrar(){
+    System.exit(1);
+    }
  class MiEvento implements ActionListener{
 	
   public void actionPerformed( ActionEvent e ){
@@ -171,7 +206,29 @@ public class VentanaEvento extends JFrame {
     {
        validar_y_guardar();
     }
-    
+    if( e.getSource().equals( botonCancelar ) )
+    {
+       
+       cerrar();
+    }
+    if(e.getSource().equals(hora_fin))
+    {
+      if(hora_fin.getSelectedItem().equals("--"))
+       {
+         minuto_fin.setSelectedIndex(0);
+        }else{
+         minuto_fin.setSelectedIndex(1);
+        }   
+    }
+    if(e.getSource().equals(minuto_fin))
+    {
+      if(minuto_fin.getSelectedItem().equals("--"))
+       {
+         hora_fin.setSelectedIndex(0);
+        }else{
+         hora_fin.setSelectedIndex(1);
+        }   
+    }
   }
 			
 }

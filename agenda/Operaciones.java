@@ -7,6 +7,7 @@ package agenda;
 import Objetos.Persona;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -23,7 +24,7 @@ public class Operaciones extends Conexion {
   public void insertarDatos(String nombEven, String fecha, String hrsIni, String hrsFin) {
     int num;
     num = 10000 + (int)(Math.random()*100000);    
-    insertar("insert into evento (id_evento,nombre_evento,fecha,horaini,horafin) values ('" + String.valueOf(num) +"','" + nombEven + "','" + fecha + "','" + hrsIni + "','" + hrsFin + "')");
+    insertar("insert into EVENTO (id_evento,nombre_evento,fecha,horaini,horafin) values ('" + String.valueOf(num) +"','" + nombEven + "','" + fecha + "','" + hrsIni + "','" + hrsFin + "')");
   }
 
   public boolean insertar(String sql) {
@@ -100,5 +101,23 @@ public class Operaciones extends Conexion {
         e.printStackTrace();
       }
     }
+  }
+  public ResultSet get_eventos(String fecha)
+  {
+      String auxfecha="'"+fecha+"'";
+      String sql="select * from EVENTO where fecha="+auxfecha;
+      System.out.println(sql);
+      conectar();
+    ResultSet resultado = null;
+    try {
+      resultado = consulta.executeQuery(sql);
+
+    } catch (SQLException e) {
+      System.out.println("Mensaje:" + e.getMessage());
+      System.out.println("Estado:" + e.getSQLState());
+      System.out.println("Codigo del error:" + e.getErrorCode());
+      JOptionPane.showMessageDialog(null, "" + e.getMessage());
+    }
+    return resultado;
   }
 }
