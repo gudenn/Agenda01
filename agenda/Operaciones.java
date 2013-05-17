@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Package agenda.
  */
 package agenda;
 
@@ -12,6 +11,10 @@ import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * Clase Operaciones
+ * @author equipo de programacion Agil
+ */
 public class Operaciones extends Conexion {
 
   /**
@@ -23,8 +26,8 @@ public class Operaciones extends Conexion {
 
   public void insertarDatos(String nombEven, String fecha, String hrsIni, String hrsFin) {
     int num;
-    num = 10000 + (int)(Math.random()*100000);    
-    insertar("insert into EVENTO (id_evento,nombre_evento,fecha,horaini,horafin) values ('" + String.valueOf(num) +"','" + nombEven + "','" + fecha + "','" + hrsIni + "','" + hrsFin + "')");
+    num = 10000 + (int) (Math.random() * 100000);
+    insertar("insert into EVENTO (id_evento,nombre_evento,fecha,horaini,horafin) values ('" + String.valueOf(num) + "','" + nombEven + "','" + fecha + "','" + hrsIni + "','" + hrsFin + "')");
   }
 
   public boolean insertar(String sql) {
@@ -102,12 +105,12 @@ public class Operaciones extends Conexion {
       }
     }
   }
-  public ResultSet get_eventos(String fecha)
-  {
-      String auxfecha="'"+fecha+"'";
-      String sql="select * from EVENTO where fecha="+auxfecha;
-      System.out.println(sql);
-      conectar();
+
+  public ResultSet get_eventos(String fecha) {
+    String auxfecha = "'" + fecha + "'";
+    String sql = "select * from EVENTO where fecha=" + auxfecha;
+    System.out.println(sql);
+    conectar();
     ResultSet resultado = null;
     try {
       resultado = consulta.executeQuery(sql);
