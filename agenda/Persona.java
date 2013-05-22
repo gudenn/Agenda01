@@ -12,16 +12,16 @@ public class Persona {
 
   private String id;
   private String primer_nombre;
-  private String segundo_nombre;
   private String primer_apellido;
   private String segundo_apellido;
+  private String email;
 
-  public Persona(String id, String primer_nombre, String segundo_nombre, String primer_apellido, String segundo_apellido) {
-    this.id = id;
-    this.primer_nombre = primer_nombre;
-    this.segundo_nombre = segundo_nombre;
-    this.primer_apellido = primer_apellido;
+  public Persona(String id, String primer_nombre,  String primer_apellido, String segundo_apellido, String email) {
+    this.id               = id;
+    this.primer_nombre    = primer_nombre;
+    this.primer_apellido  = primer_apellido;
     this.segundo_apellido = segundo_apellido;
+    this.email            = email;
   }
 
   public String getId() {
@@ -56,11 +56,13 @@ public class Persona {
     this.segundo_apellido = segundo_apellido;
   }
 
-  public String getSegundo_nombre() {
-    return segundo_nombre;
+  public String getEmail() {
+    return email;
   }
 
-  public void setSegundo_nombre(String segundo_nombre) {
-    this.segundo_nombre = segundo_nombre;
+  public void setEmail(String email) {
+    this.email = email;
   }
+
+
 }

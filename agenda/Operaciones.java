@@ -67,7 +67,7 @@ public class Operaciones extends Conexion {
   public void guardarUsuario(Persona persona) {
     insertar("insert into Persona values(" + persona.getId()
             + ",'" + persona.getPrimer_nombre()
-            + "','" + persona.getSegundo_nombre()
+            + "','" + persona.getEmail()
             + "','" + persona.getPrimer_apellido()
             + "','" + persona.getSegundo_apellido() + "')");
   }
