@@ -35,7 +35,8 @@ public class GUI extends javax.swing.JFrame {
     }
  public void init()
  {
-     jTabbedPane1.add("Buscar eventos",panel_buscar_evento);
+     //aniadiendo las pestañas al panel principal
+     jTabbedPane1.add("Buscar eventos",panel_buscar_evento); 
      jTabbedPane1.add("Agregar Evento",crear_evento);
 
  }

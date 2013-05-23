@@ -137,7 +137,7 @@ private Operaciones operaciones=new Operaciones();
     }// </editor-fold>//GEN-END:initComponents
 
     private void Boton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_buscarActionPerformed
-         
+         //captur evento del boton
          jLabel1.setText("Eventos");           
          String fecha=sdf.format(calendario.getDate());
          jLabel2.setText(fecha);
@@ -152,7 +152,7 @@ private Operaciones operaciones=new Operaciones();
 
     public void listar_resp(ResultSet matriz)
     {
-        
+        //recorrer matriz de resultados y colocar en el panel de de paneles.
         panel_eventos.removeAll();
         
         try{
