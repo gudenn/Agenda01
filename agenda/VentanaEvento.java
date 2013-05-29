@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.TimerTask;
 import javax.swing.text.DateFormatter;
 
-public class VentanaEvento extends javax.swing.JPanel {
+public class VentanaEvento extends javax.swing.JDialog {
 
   private java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
   private com.toedter.calendar.JDateChooser fecha;
@@ -34,30 +34,28 @@ public class VentanaEvento extends javax.swing.JPanel {
   private JButton botonGuardar;
   private JButton botonCancelar;
   private TextField nombre;
-  //private TextField fecha;
-  //AtTimeField a;
-  //JPanel contenedor =  new JPanel();
+
+  JPanel contenedor =  new JPanel();
 
   public VentanaEvento() {
-    iniciarComponentes();
+    
     Toolkit tool = getToolkit();
     Dimension d = tool.getScreenSize();
-    //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setSize(400, 400);
-    setLocation(0, 0);
-    //setVisible(true);
-
-    //accion 56 w
-    //echo Revisado modificado
+    setModal(true);
+   // setLayout(null);
+    setBounds(0, 0, 350, 300);
+    iniciarComponentes();
     MiEvento evento = new MiEvento();
     MiEvento evento2 = new MiEvento();
     botonGuardar.addActionListener(evento);
     hora_fin.addActionListener(evento2);
     minuto_fin.addActionListener(evento);
     botonCancelar.addActionListener(evento);
-  }
+    }
 
   private void iniciarComponentes() {
+    contenedor = new JPanel();
+    contenedor.setBounds(0, 0, 350, 300);
     label1 = new JLabel();
     label2 = new JLabel();
     label3 = new JLabel();
@@ -83,64 +81,63 @@ public class VentanaEvento extends javax.swing.JPanel {
       minuto_fin.addItem(m);
       minuto_ini.addItem(m);
     }
-    // Titulo
-    //setTitle("Evento");
-    //setName("VentanaEvento");
-
+  
     setLayout(null);
 
     label1.setText("Nombre:");
     label1.setFont(new Font("Arial", Font.PLAIN, 16));
-    add(label1);
+    contenedor.add(label1);
     label1.setBounds(50, 30, 70, 35);
 
     label2.setText("Fecha:");
     label2.setFont(new Font("Arial", Font.PLAIN, 16));
-    add(label2);
+    contenedor.add(label2);
     label2.setBounds(50, 60, 70, 35);
 
     label3.setText("Hora inicio:");
     label3.setFont(new Font("Arial", Font.PLAIN, 16));
-    add(label3);
+    contenedor.add(label3);
     label3.setBounds(50, 90, 70, 35);
 
     label4.setText("Hora fin:");
     label4.setFont(new Font("Arial", Font.PLAIN, 16));
-    add(label4);
+    contenedor.add(label4);
     label4.setBounds(50, 120, 70, 35);
 
     botonGuardar.setText("Guardar");
     botonGuardar.setFont(new Font("Arial", Font.PLAIN, 13));
-    add(botonGuardar);
+    contenedor.add(botonGuardar);
     botonGuardar.setBounds(200, 180, 100, 35);
 
     botonCancelar.setText("Cancelar");
     botonCancelar.setFont(new Font("Arial", Font.PLAIN, 13));
-    add(botonCancelar);
+    contenedor.add(botonCancelar);
     botonCancelar.setBounds(50, 180, 100, 35);
 
     nombre.setBounds(120, 40, 150, 20);
-    add(nombre);
+    contenedor.add(nombre);
 
-    fecha.setBounds(120, 70, 150, 20);
-    //fecha.setFocusable(true);
-    //fecha.setFocusTraversalKeysEnabled(true);
+    fecha.setBounds(120, 70, 150, 24);
+   
     fecha.setVerifyInputWhenFocusTarget(true);
     Date d = new Date();
     fecha.setMinSelectableDate(d);
 
-    add(fecha);
+    contenedor.add(fecha);
 
-    hora_ini.setBounds(120, 100, 40, 20);
+    hora_ini.setBounds(120, 100, 50, 20);
 
-    add(hora_ini);
-    minuto_ini.setBounds(180, 100, 40, 20);
-    add(minuto_ini);
-    hora_fin.setBounds(120, 130, 40, 20);
+    contenedor.add(hora_ini);
+    minuto_ini.setBounds(180, 100, 50, 20);
+    contenedor.add(minuto_ini);
+    hora_fin.setBounds(120, 130, 50, 20);
 
-    add(hora_fin);
-    minuto_fin.setBounds(180, 130, 40, 20);
-    add(minuto_fin);
+    contenedor.add(hora_fin);
+    minuto_fin.setBounds(180, 130, 50, 20);
+    contenedor.add(minuto_fin);
+   contenedor.setLayout(null);
+    add(contenedor);
+   
   }
 
   public void validar_y_guardar() {
@@ -183,7 +180,8 @@ public class VentanaEvento extends javax.swing.JPanel {
   }
 
   public void cerrar() {
-    System.exit(1);
+    dispose();
+    
   }
 
   class MiEvento implements ActionListener {
