@@ -11,17 +11,19 @@ package Objetos;
 public class Persona {
 
   private String id;
-  private String primer_nombre;
-  private String primer_apellido;
-  private String segundo_apellido;
+  private String nombre;
+  private String apellido;
+  private String cumpleaño;
+  private String telefono;
   private String email;
 
-  public Persona(String id, String primer_nombre,  String primer_apellido, String segundo_apellido, String email) {
+  public Persona(String id, String nombre,  String apellido, String cumpleaño, String telefono,String email) {
     this.id               = id;
-    this.primer_nombre    = primer_nombre;
-    this.primer_apellido  = primer_apellido;
-    this.segundo_apellido = segundo_apellido;
-    this.email            = email;
+    this.nombre    = nombre;
+    this.apellido  = apellido;
+    this.cumpleaño = cumpleaño;
+    this.telefono  = telefono;
+    this.email     = email;
   }
 
   public String getId() {
@@ -32,28 +34,28 @@ public class Persona {
     this.id = id;
   }
 
-  public String getPrimer_apellido() {
-    return primer_apellido;
+  public String getapellido() {
+    return apellido;
   }
 
-  public void setPrimer_apellido(String primer_apellido) {
-    this.primer_apellido = primer_apellido;
+  public void setapellido(String primer_apellido) {
+    this.apellido = apellido;
   }
 
-  public String getPrimer_nombre() {
-    return primer_nombre;
+  public String getnombre() {
+    return nombre;
   }
 
-  public void setPrimer_nombre(String primer_nombre) {
-    this.primer_nombre = primer_nombre;
+  public void set_nombre(String nombre) {
+    this.nombre = nombre;
   }
 
-  public String getSegundo_apellido() {
-    return segundo_apellido;
+  public String get_cumpleaño() {
+    return cumpleaño;
   }
 
-  public void setSegundo_apellido(String segundo_apellido) {
-    this.segundo_apellido = segundo_apellido;
+  public void set_cumpleaño(String cumpleaño) {
+    this.cumpleaño = cumpleaño;
   }
 
   public String getEmail() {
@@ -63,6 +65,11 @@ public class Persona {
   public void setEmail(String email) {
     this.email = email;
   }
-
+  public String gettelefono() {
+    return telefono;
+  }
+  public String settelefono(String telefono) {
+    return this.telefono=telefono;
+  }
 
 }

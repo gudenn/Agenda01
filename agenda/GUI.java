@@ -5,10 +5,10 @@
 package agenda;
 
 import Objetos.Persona;
-//import Operaciones.Operaciones;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,16 +25,19 @@ public class GUI extends javax.swing.JFrame {
     listar_contactos listarcontactos; 
     VentanaEvento crear_evento;
     Agregar_contacto formulario_agregar_contacto;
-   
+   // ImageIcon ifondo;
+    //JLabel lfondo;
     private java.text.SimpleDateFormat sdf=new java.text.SimpleDateFormat("dd/MM/yyyy");  
     
-    /**
-     * Creates new form GUI
-     */
+    
     public GUI() {
        initComponents();
        operaciones=new Operaciones(); 
        operaciones.conectar();
+      // ifondo=new ImageIcon("imagenes/fondo1.jjpg");
+      // lfondo.setIcon(ifondo);
+      // lfondo.setBounds(0, 0, 3001, 200);
+      // jTabbedPane1.add(lfondo);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -206,7 +209,6 @@ public class GUI extends javax.swing.JFrame {
         jLabel1.setText("Eventos");
         String fecha=sdf.format(calendario.getDate());
         jLabel2.setText(fecha);
-        operaciones.get_eventos(fecha);
         listar_resp(operaciones.get_eventos(fecha));
 }//GEN-LAST:event_Boton_buscarActionPerformed
 
@@ -238,14 +240,20 @@ public class GUI extends javax.swing.JFrame {
           while(matriz.next())
           {
            JPanelTransparente paneli =new JPanelTransparente();
+           paneli.setLayout(null);
            paneli.setBounds(5, (55*i)+10, 160, 50);
            paneli.setToolTipText(matriz.getString(3));
            
            JLabel texto=new JLabel();
            texto.setText(matriz.getString(2));
-           texto.setBounds(5, 0, 400, 40);
+           texto.setBounds(30, 0, 150, 15);
            
+           JLabel texto_hora=new JLabel();
+           texto_hora.setText("De "+matriz.getString(4)+" a "+matriz.getString(5));
+           texto_hora.setBounds(30, 15, 100, 15);
+           paneli.add(texto_hora);
            paneli.add(texto);
+           
            panel_eventos.add(paneli);
            i++;
           }  

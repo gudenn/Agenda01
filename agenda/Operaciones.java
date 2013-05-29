@@ -66,17 +66,18 @@ public class Operaciones extends Conexion {
 
   public void guardarUsuario(Persona persona) {
     insertar("insert into Persona values(" + persona.getId()
-            + ",'" + persona.getPrimer_nombre()
-            + "','" + persona.getEmail()
-            + "','" + persona.getPrimer_apellido()
-            + "','" + persona.getSegundo_apellido() + "')");
+            + ",'" + persona.getnombre()
+            + "','" + persona.getapellido()
+            + "','" + persona.get_cumpleaño()
+            + "','" + persona.gettelefono()
+            + "','" + persona.getEmail()+ "')");
   }
 
   public void totalPersonas(DefaultTableModel tableModel) {
     ResultSet resultado = null;
     tableModel.setRowCount(0);
     tableModel.setColumnCount(0);
-    String sql = "select * from Persona";
+    String sql = "select nombre,apellido,email,cumpleaño,telefono,email from Persona";
     try {
       resultado = consultar(sql);
       if (resultado != null) {

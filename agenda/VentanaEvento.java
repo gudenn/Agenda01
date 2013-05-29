@@ -154,6 +154,7 @@ public class VentanaEvento extends javax.swing.JDialog {
           System.out.println(date + " " + hrs_ini + " " + hrs_fin);
           Operaciones o = new Operaciones();
           o.insertarDatos(nombre.getText(), date, hrs_ini, hrs_fin);
+          dispose();
         } catch (Exception e) {
           JOptionPane.showMessageDialog(this, "la fecha no es valida");
 
@@ -170,6 +171,7 @@ public class VentanaEvento extends javax.swing.JDialog {
             System.out.println(date + " " + hrs_ini + " " + hrs_fin);
             Operaciones o = new Operaciones();
             o.insertarDatos(nombre.getText(), date, hrs_ini, hrs_fin);
+            dispose();
           } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "la fecha no es valida");
 
