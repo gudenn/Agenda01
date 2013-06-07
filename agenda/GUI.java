@@ -7,14 +7,19 @@ package agenda;
 import Objetos.Persona;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+//comentario
 /**
  *
  * @author taniao
@@ -39,6 +44,31 @@ public class GUI extends javax.swing.JFrame {
       // lfondo.setBounds(0, 0, 3001, 200);
       // jTabbedPane1.add(lfondo);
     }
+      public void FileCopy(String sourceFile, String destinationFile) {
+		System.out.println("Desde: " + sourceFile);
+		System.out.println("Hacia: " + destinationFile);
+
+		try {
+			File inFile = new File(sourceFile);
+			File outFile = new File(destinationFile);
+
+			FileInputStream in = new FileInputStream(inFile);
+			FileOutputStream out = new FileOutputStream(outFile);
+
+			int c;
+			while( (c = in.read() ) != -1)
+				out.write(c);
+
+			in.close();
+			out.close();
+		} catch(IOException e) {
+			System.err.println("Hubo un error de entrada/salida!!!");
+		}
+	}
+      public void actualizar_bd(String ruta)
+      {
+          operaciones.actualizar_bd(ruta);
+      }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,6 +90,11 @@ public class GUI extends javax.swing.JFrame {
         agregar_evento = new javax.swing.JButton();
         agregar_contacto = new javax.swing.JButton();
         listar_contactos = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        ajustes = new javax.swing.JMenu();
+        exportar_bd = new javax.swing.JMenuItem();
+        importar_bd = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -129,8 +164,8 @@ public class GUI extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(listar_contactos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(agregar_contacto, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                            .addComponent(agregar_evento, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(agregar_evento, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
@@ -171,14 +206,38 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(agregar_contacto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(listar_contactos)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
+                .addContainerGap(32, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Agenda", jPanel1);
+
+        jMenuBar1.add(jMenu1);
+
+        ajustes.setText("Ajustes");
+
+        exportar_bd.setText("Exportar Base de Dstos");
+        exportar_bd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportar_bdActionPerformed(evt);
+            }
+        });
+        ajustes.add(exportar_bd);
+
+        importar_bd.setText("Importar Base de Datos");
+        importar_bd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importar_bdActionPerformed(evt);
+            }
+        });
+        ajustes.add(importar_bd);
+
+        jMenuBar1.add(ajustes);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -193,7 +252,7 @@ public class GUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -229,7 +288,48 @@ public class GUI extends javax.swing.JFrame {
         listarcontactos.setLocation(this.location().x+150, this.location().y+80);
         listarcontactos.setVisible(true);
 }//GEN-LAST:event_listar_contactosActionPerformed
-   
+
+    private void exportar_bdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportar_bdActionPerformed
+       JFileChooser exportar=new JFileChooser();
+       String ruta = "";
+       try{
+           exportar.setFileSelectionMode(exportar.DIRECTORIES_ONLY);
+           int status= exportar.showSaveDialog(null);
+           if(status==exportar.APPROVE_OPTION){
+           ruta = exportar.getSelectedFile().getAbsolutePath();
+           ruta=ruta+"/registro.db";
+           if(new File(ruta).exists())
+                {
+                if(JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(this,"El fichero existe,deseas reemplazarlo?","Titulo",JOptionPane.YES_NO_OPTION))
+                  {
+                      
+                      FileCopy("BD/registro.db", ruta);
+                  }
+                }else{
+                     FileCopy("BD/registro.db", ruta);
+               }
+             }
+       }catch (Exception ex){
+        ex.printStackTrace();
+       }
+ 
+    }//GEN-LAST:event_exportar_bdActionPerformed
+
+    private void importar_bdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importar_bdActionPerformed
+        JFileChooser importar=new JFileChooser();
+        String ruta = "";
+        try{
+           int status= importar.showSaveDialog(null);
+           if(status==importar.APPROVE_OPTION){
+           ruta = importar.getSelectedFile().getAbsolutePath();
+                      actualizar_bd(ruta);
+                      System.out.println(ruta);
+           }
+       }catch (Exception ex){
+        ex.printStackTrace();
+       }
+    }//GEN-LAST:event_importar_bdActionPerformed
+
     public void listar_resp(ResultSet matriz)
     {
         //recorrer matriz de resultados y colocar en el panel de de paneles.
@@ -313,10 +413,15 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton Boton_buscar;
     private javax.swing.JButton agregar_contacto;
     private javax.swing.JButton agregar_evento;
+    private javax.swing.JMenu ajustes;
     private com.toedter.calendar.JCalendar calendario;
+    private javax.swing.JMenuItem exportar_bd;
+    private javax.swing.JMenuItem importar_bd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;

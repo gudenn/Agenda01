@@ -23,6 +23,7 @@ public class VentanaEvento extends javax.swing.JDialog {
 
   private java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
   private com.toedter.calendar.JDateChooser fecha;
+
   private javax.swing.JComboBox hora_ini;
   private javax.swing.JComboBox minuto_ini;
   private javax.swing.JComboBox hora_fin;
@@ -31,7 +32,15 @@ public class VentanaEvento extends javax.swing.JDialog {
   private JLabel label2;
   private JLabel label3;
   private JLabel label4;
+  
+  private JLabel label5;
+  
+  listar_contactos_nombres listarnombres;
+  Operaciones operaciones = new Operaciones();
+  private JButton agregarNombre;
+  
   private JButton botonGuardar;
+  
   private JButton botonCancelar;
   private TextField nombre;
 
@@ -51,6 +60,8 @@ public class VentanaEvento extends javax.swing.JDialog {
     hora_fin.addActionListener(evento2);
     minuto_fin.addActionListener(evento);
     botonCancelar.addActionListener(evento);
+    agregarNombre.addActionListener(evento);
+    
     }
 
   private void iniciarComponentes() {
@@ -60,8 +71,15 @@ public class VentanaEvento extends javax.swing.JDialog {
     label2 = new JLabel();
     label3 = new JLabel();
     label4 = new JLabel();
+    
+    label5 = new JLabel();
+    
     botonGuardar = new JButton();
     botonCancelar = new JButton();
+    
+    listarnombres = new listar_contactos_nombres(null, rootPaneCheckingEnabled, operaciones);
+    agregarNombre = new JButton();
+    
     nombre = new TextField();
 
     fecha = new JDateChooser();
@@ -103,6 +121,11 @@ public class VentanaEvento extends javax.swing.JDialog {
     label4.setFont(new Font("Arial", Font.PLAIN, 16));
     contenedor.add(label4);
     label4.setBounds(50, 120, 70, 35);
+    
+    agregarNombre.setText("AgregarContacto");
+    agregarNombre.setFont(new Font("Arial", Font.PLAIN, 13));
+    contenedor.add(agregarNombre);
+    agregarNombre.setBounds(50, 160, 150, 20);
 
     botonGuardar.setText("Guardar");
     botonGuardar.setFont(new Font("Arial", Font.PLAIN, 13));
@@ -193,10 +216,17 @@ public class VentanaEvento extends javax.swing.JDialog {
 
       if (e.getSource().equals(botonGuardar)) {
         validar_y_guardar();
+        
       }
       if (e.getSource().equals(botonCancelar)) {
 
         cerrar();
+      }
+      
+      if (e.getSource().equals(agregarNombre)) {
+            //listarnombres = new listar_contactos_nombres(this,true, operaciones);
+            //listarnombres.setLocation(this.location().x+150, this.location().y+80);
+            listarnombres.setVisible(true);
       }
 
       if (e.getSource().equals(hora_fin)) {

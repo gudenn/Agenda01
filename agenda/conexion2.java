@@ -15,19 +15,19 @@ import javax.swing.JOptionPane;
  * @author equipo de programacion Agil
  * @version 1.01
  */
-public class Conexion {
-  Connection conexion;
-  Statement consulta;
+public class conexion2 {
+  Connection conexion2;
+  Statement consulta2;
   public String ruta;
 
   /**
    * Constructor del objeto de class Conexion
    */
-  public Conexion() {
+  public conexion2(String ruta) {
     /**
      * la Ruta para la base de datos
      */
-    ruta = "BD/registro.db";
+    this.ruta = ruta;
   }
 
   /**
@@ -40,21 +40,8 @@ public class Conexion {
       JOptionPane.showMessageDialog(null, e.getMessage());
     }
     try {
-      conexion = DriverManager.getConnection("jdbc:sqlite:" + ruta);
-      consulta = conexion.createStatement();
-    } catch (SQLException e) {
-      JOptionPane.showMessageDialog(null, e.getMessage());
-    }
-  }
-  public void conectar_a_otra_bd(String ruta) {
-    try {
-      Class.forName("org.sqlite.JDBC");
-    } catch (ClassNotFoundException e) {
-      JOptionPane.showMessageDialog(null, e.getMessage());
-    }
-    try {
-      conexion = DriverManager.getConnection("jdbc:sqlite:" + ruta);
-      consulta = conexion.createStatement();
+      conexion2 = DriverManager.getConnection("jdbc:sqlite:" + ruta);
+      consulta2 = conexion2.createStatement();
     } catch (SQLException e) {
       JOptionPane.showMessageDialog(null, e.getMessage());
     }

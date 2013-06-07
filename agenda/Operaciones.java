@@ -63,6 +63,23 @@ public class Operaciones extends Conexion {
     }
     return resultado;
   }
+   public ResultSet consultar_otra_bd(String sql,String ruta) {
+    
+    conexion2 conexion_two=new conexion2(ruta);
+    conexion_two.conectar();
+    ResultSet resultado = null;
+    try {
+        
+      resultado = conexion_two.consulta2.executeQuery(sql);
+      
+    } catch (SQLException e) {
+      System.out.println("Mensaje:" + e.getMessage());
+      System.out.println("Estado:" + e.getSQLState());
+      System.out.println("Codigo del error:" + e.getErrorCode());
+      JOptionPane.showMessageDialog(null, "" + e.getMessage());
+    }
+    return resultado;
+  }
 
   public void guardarUsuario(Persona persona) {
     insertar("insert into Persona values(" + persona.getId()
@@ -78,6 +95,40 @@ public class Operaciones extends Conexion {
     tableModel.setRowCount(0);
     tableModel.setColumnCount(0);
     String sql = "select nombre,apellido,email,cumpleaño,telefono,email from Persona";
+    try {
+      resultado = consultar(sql);
+      if (resultado != null) {
+        int numeroColumna = resultado.getMetaData().getColumnCount();
+        for (int j = 1; j <= numeroColumna; j++) {
+          tableModel.addColumn(resultado.getMetaData().getColumnName(j));
+        }
+        while (resultado.next()) {
+          Object[] objetos = new Object[numeroColumna];
+          for (int i = 1; i <= numeroColumna; i++) {
+            objetos[i - 1] = resultado.getObject(i);
+          }
+          tableModel.addRow(objetos);
+        }
+      }
+    } catch (SQLException e) {
+    } finally {
+      try {
+        consulta.close();
+        conexion.close();
+        if (resultado != null) {
+          resultado.close();
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+  
+  public void nombrePersonas(DefaultTableModel tableModel) {
+    ResultSet resultado = null;
+    tableModel.setRowCount(0);
+    tableModel.setColumnCount(0);
+    String sql = "select id,nombre from Persona";
     try {
       resultado = consultar(sql);
       if (resultado != null) {
@@ -124,4 +175,38 @@ public class Operaciones extends Conexion {
     }
     return resultado;
   }
+  public void actualizar_bd(String ruta)
+  {
+
+  String sql_persona="select * from persona";
+  String sql_evento="select * from evento";
+  ResultSet resultado_persona = null;
+  ResultSet resultado_evento = null;
+  try {
+      
+      resultado_persona = consultar_otra_bd(sql_persona,ruta);
+      resultado_evento = consultar_otra_bd(sql_evento,ruta);
+      insertar("delete from persona");
+      insertar("delete from evento");      
+      String nuevos_fila="";
+      while(resultado_persona.next())
+      {   
+          nuevos_fila=resultado_persona.getObject(1)+",'"+resultado_persona.getString(2)+" "+resultado_persona.getString(3)+"','"+resultado_persona.getString(4)+" "+resultado_persona.getString(5)+"'";
+          insertar("insert into persona(id,nombre,apellido) values("+nuevos_fila+")");
+       }
+      while(resultado_evento.next())
+      {
+          nuevos_fila=resultado_evento.getObject(1)+",'"+resultado_evento.getString(2)+"','"+resultado_evento.getString(3)+"','"+resultado_evento.getString(4)+"','"+resultado_evento.getString(5)+"'";
+          insertar("insert into evento(id_evento,nombre_evento,fecha,horaini,horafin) values("+nuevos_fila+")");
+       }
+      
+  }catch (SQLException e) {
+      System.out.println("Mensaje:" + e.getMessage());
+      System.out.println("Estado:" + e.getSQLState());
+      System.out.println("Codigo del error:" + e.getErrorCode());
+      JOptionPane.showMessageDialog(null, "" + e.getMessage());
+    }
+  
+  }
+
 }
