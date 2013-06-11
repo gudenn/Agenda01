@@ -11,6 +11,7 @@
 package agenda;
 
 import Objetos.Persona;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,14 +24,19 @@ public class Agregar_contacto extends javax.swing.JDialog {
     /** Creates new form Agregar_contacto */
      Operaciones operaciones;
      private java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-     public Agregar_contacto(java.awt.Frame parent, boolean modal, Operaciones operacioness) {
+     public Agregar_contacto(java.awt.Frame parent, boolean modal, Operaciones operacioness,String fecha_por_defecto) {
         super(parent, modal);
         
         this.operaciones =operacioness;
         initComponents();
-         
+        init_componentes(fecha_por_defecto);
+        
     }
-  
+    public void init_componentes(String fecha_por_defecto)
+    {
+        Date date=new Date(fecha_por_defecto);
+        fecha_cumpleaño.setDate(date);
+    }
     private void limpiar(){
       
        

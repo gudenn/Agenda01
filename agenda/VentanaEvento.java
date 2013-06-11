@@ -46,14 +46,14 @@ public class VentanaEvento extends javax.swing.JDialog {
 
   JPanel contenedor =  new JPanel();
 
-  public VentanaEvento() {
+  public VentanaEvento(String fecha_por_defecto,int hora_def,int min_def) {
     
     Toolkit tool = getToolkit();
     Dimension d = tool.getScreenSize();
     setModal(true);
    // setLayout(null);
     setBounds(0, 0, 350, 300);
-    iniciarComponentes();
+    iniciarComponentes(fecha_por_defecto,hora_def,min_def);
     MiEvento evento = new MiEvento();
     MiEvento evento2 = new MiEvento();
     botonGuardar.addActionListener(evento);
@@ -61,10 +61,10 @@ public class VentanaEvento extends javax.swing.JDialog {
     minuto_fin.addActionListener(evento);
     botonCancelar.addActionListener(evento);
     agregarNombre.addActionListener(evento);
-    
+   
     }
 
-  private void iniciarComponentes() {
+  private void iniciarComponentes(String fecha_por_defecto,int hora_def,int min_def) {
     contenedor = new JPanel();
     contenedor.setBounds(0, 0, 350, 300);
     label1 = new JLabel();
@@ -99,7 +99,8 @@ public class VentanaEvento extends javax.swing.JDialog {
       minuto_fin.addItem(m);
       minuto_ini.addItem(m);
     }
-  
+    hora_ini.setSelectedItem(hora_def);
+    minuto_ini.setSelectedItem(min_def);
     setLayout(null);
 
     label1.setText("Nombre:");
@@ -145,7 +146,9 @@ public class VentanaEvento extends javax.swing.JDialog {
     fecha.setVerifyInputWhenFocusTarget(true);
     Date d = new Date();
     fecha.setMinSelectableDate(d);
-
+    fecha.setDateFormatString(fecha_por_defecto);
+    Date date=new Date(fecha_por_defecto);
+    fecha.setDate(date);
     contenedor.add(fecha);
 
     hora_ini.setBounds(120, 100, 50, 20);

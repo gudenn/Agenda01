@@ -5,6 +5,7 @@
 package agenda;
 
 import Objetos.Persona;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -30,8 +31,8 @@ public class GUI extends javax.swing.JFrame {
     listar_contactos listarcontactos; 
     VentanaEvento crear_evento;
     Agregar_contacto formulario_agregar_contacto;
-   // ImageIcon ifondo;
-    //JLabel lfondo;
+    ImageIcon ifondo=new ImageIcon();
+    JLabel lfondo=new JLabel();
     private java.text.SimpleDateFormat sdf=new java.text.SimpleDateFormat("dd/MM/yyyy");  
     
     
@@ -39,10 +40,17 @@ public class GUI extends javax.swing.JFrame {
        initComponents();
        operaciones=new Operaciones(); 
        operaciones.conectar();
-      // ifondo=new ImageIcon("imagenes/fondo1.jjpg");
-      // lfondo.setIcon(ifondo);
-      // lfondo.setBounds(0, 0, 3001, 200);
-      // jTabbedPane1.add(lfondo);
+       
+      // init_componentes();
+    }
+    public void init_componentes()
+    {/*
+       ifondo=new ImageIcon("imagenes/fondo-agenda.jpg");
+       lfondo.setIcon(ifondo);
+       lfondo.setBounds(0, 200, 3001, 200);
+       jPanel1.setLayout(null);
+       jPanel1.add(lfondo);
+       */
     }
       public void FileCopy(String sourceFile, String destinationFile) {
 		System.out.println("Desde: " + sourceFile);
@@ -272,13 +280,17 @@ public class GUI extends javax.swing.JFrame {
 }//GEN-LAST:event_Boton_buscarActionPerformed
 
     private void agregar_eventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_eventoActionPerformed
-        crear_evento = new VentanaEvento();
+        String fecha=sdf.format(calendario.getDate());
+        String hora=""+calendario.getDate().getHours();
+        String minuto=""+calendario.getDate().getMinutes();
+        crear_evento = new VentanaEvento(fecha,Integer.parseInt(hora),Integer.parseInt(minuto));
         crear_evento.setLocation(this.location().x+150, this.location().y+80);
         crear_evento.setVisible(true);
 }//GEN-LAST:event_agregar_eventoActionPerformed
 
     private void agregar_contactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_contactoActionPerformed
-        formulario_agregar_contacto=new Agregar_contacto(this,true, operaciones);
+        String fecha=sdf.format(calendario.getDate());
+        formulario_agregar_contacto=new Agregar_contacto(this,true, operaciones,fecha);
         formulario_agregar_contacto.setLocation(this.location().x+150, this.location().y+80);
         formulario_agregar_contacto.setVisible(true);
 }//GEN-LAST:event_agregar_contactoActionPerformed
