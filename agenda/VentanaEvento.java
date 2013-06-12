@@ -45,8 +45,11 @@ public class VentanaEvento extends javax.swing.JDialog {
   private TextField nombre;
 
   JPanel contenedor =  new JPanel();
-
-  public VentanaEvento(String fecha_por_defecto,int hora_def,int min_def) {
+  private JTable contactos=new JTable();
+  
+      
+  
+  public VentanaEvento(Date fecha_por_defecto,int hora_def,int min_def) {
     
     Toolkit tool = getToolkit();
     Dimension d = tool.getScreenSize();
@@ -64,7 +67,7 @@ public class VentanaEvento extends javax.swing.JDialog {
    
     }
 
-  private void iniciarComponentes(String fecha_por_defecto,int hora_def,int min_def) {
+  private void iniciarComponentes(Date fecha_por_defecto,int hora_def,int min_def) {
     contenedor = new JPanel();
     contenedor.setBounds(0, 0, 350, 300);
     label1 = new JLabel();
@@ -77,7 +80,7 @@ public class VentanaEvento extends javax.swing.JDialog {
     botonGuardar = new JButton();
     botonCancelar = new JButton();
     
-    listarnombres = new listar_contactos_nombres(null, rootPaneCheckingEnabled, operaciones);
+    listarnombres = new listar_contactos_nombres(null, rootPaneCheckingEnabled, operaciones,contactos);
     agregarNombre = new JButton();
     
     nombre = new TextField();
@@ -146,9 +149,9 @@ public class VentanaEvento extends javax.swing.JDialog {
     fecha.setVerifyInputWhenFocusTarget(true);
     Date d = new Date();
     fecha.setMinSelectableDate(d);
-    fecha.setDateFormatString(fecha_por_defecto);
-    Date date=new Date(fecha_por_defecto);
-    fecha.setDate(date);
+    
+    fecha.setDate(fecha_por_defecto);
+   
     contenedor.add(fecha);
 
     hora_ini.setBounds(120, 100, 50, 20);
@@ -179,7 +182,7 @@ public class VentanaEvento extends javax.swing.JDialog {
           String date = sdf.format(fecha.getDate());
           System.out.println(date + " " + hrs_ini + " " + hrs_fin);
           Operaciones o = new Operaciones();
-          o.insertarDatos(nombre.getText(), date, hrs_ini, hrs_fin);
+          o.insertarDatos(nombre.getText(), date, hrs_ini, hrs_fin,listarnombres.get_tabla());
           dispose();
         } catch (Exception e) {
           JOptionPane.showMessageDialog(this, "la fecha no es valida");
@@ -196,7 +199,7 @@ public class VentanaEvento extends javax.swing.JDialog {
             String date = sdf.format(fecha.getDate());
             System.out.println(date + " " + hrs_ini + " " + hrs_fin);
             Operaciones o = new Operaciones();
-            o.insertarDatos(nombre.getText(), date, hrs_ini, hrs_fin);
+            o.insertarDatos(nombre.getText(), date, hrs_ini, hrs_fin,contactos);
             dispose();
           } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "la fecha no es valida");

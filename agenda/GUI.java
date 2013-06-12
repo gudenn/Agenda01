@@ -280,17 +280,17 @@ public class GUI extends javax.swing.JFrame {
 }//GEN-LAST:event_Boton_buscarActionPerformed
 
     private void agregar_eventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_eventoActionPerformed
-        String fecha=sdf.format(calendario.getDate());
+      
         String hora=""+calendario.getDate().getHours();
         String minuto=""+calendario.getDate().getMinutes();
-        crear_evento = new VentanaEvento(fecha,Integer.parseInt(hora),Integer.parseInt(minuto));
+        crear_evento = new VentanaEvento(calendario.getDate(),Integer.parseInt(hora),Integer.parseInt(minuto));
         crear_evento.setLocation(this.location().x+150, this.location().y+80);
         crear_evento.setVisible(true);
 }//GEN-LAST:event_agregar_eventoActionPerformed
 
     private void agregar_contactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_contactoActionPerformed
-        String fecha=sdf.format(calendario.getDate());
-        formulario_agregar_contacto=new Agregar_contacto(this,true, operaciones,fecha);
+   
+        formulario_agregar_contacto=new Agregar_contacto(this,true, operaciones,calendario.getDate());
         formulario_agregar_contacto.setLocation(this.location().x+150, this.location().y+80);
         formulario_agregar_contacto.setVisible(true);
 }//GEN-LAST:event_agregar_contactoActionPerformed

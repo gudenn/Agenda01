@@ -10,6 +10,7 @@
  */
 
 
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,11 +21,17 @@ public class listar_contactos_nombres extends javax.swing.JDialog {
 
     /** Creates new form listar_contactos_nombres*/
     Operaciones operaciones;
-    public listar_contactos_nombres(java.awt.Frame parent, boolean modal,Operaciones operacones) {
+    private JTable contactos;
+    public listar_contactos_nombres(java.awt.Frame parent, boolean modal,Operaciones operacones,JTable contactos) {
         super(parent, modal);
         this.operaciones=operacones;
+        this.contactos=contactos;
         initComponents();
         llenar_tabla();
+    }
+    public JTable get_tabla()
+    {
+        return jTPersonas;
     }
     public void llenar_tabla()
     {
@@ -110,11 +117,19 @@ public class listar_contactos_nombres extends javax.swing.JDialog {
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
         
-        int id = 10000 + (int) (Math.random() * 100000);
+        //int id = 10000 + (int) (Math.random() * 100000);
         //evt.getID();
         //evt.getID
-        operaciones.insertar("insert into evento_persona values(id,evt)");
+        //operaciones.insertar("insert into evento_persona values(id,evt)");
         //operaciones.totalPersonas((DefaultTableModel)jTPersonas.getModel());
+       // operaciones.asignar_personas_a_eventos(jTPersonas);
+        //contactos=jTPersonas;
+        
+        //System.out.println("MAMA"+contactos.getSize().height+"sdf");
+      //System.out.println(contactos.getSize().width);
+      dispose();
+      
+      
     }//GEN-LAST:event_aceptarActionPerformed
 
     /*

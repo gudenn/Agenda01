@@ -6,6 +6,7 @@
 //import Objetos.Persona;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import javax.swing.JCheckBox;
@@ -30,12 +31,26 @@ public class Operaciones extends Conexion {
     // initialise instance variables
   }
 
-  public void insertarDatos(String nombEven, String fecha, String hrsIni, String hrsFin) {
+  public void insertarDatos(String nombEven, String fecha, String hrsIni, String hrsFin,JTable contactos) {
     int num;
     num = 10000 + (int) (Math.random() * 100000);
+    ArrayList<Integer> ids_contactos=filtrar_ids_contactos(contactos);
     insertar("insert into EVENTO (id_evento,nombre_evento,fecha,horaini,horafin) values ('" + String.valueOf(num) + "','" + nombEven + "','" + fecha + "','" + hrsIni + "','" + hrsFin + "')");
   }
-
+  public ArrayList<Integer> filtrar_ids_contactos(JTable contactos)
+  {
+      System.out.println("llega");
+      ArrayList<Integer> res=new ArrayList<Integer>();
+      //System.out.println(contactos.getModel().getCellEditor(1, 3).getCellEditorValue());
+      System.out.println(contactos.getSize().height);
+      System.out.println(contactos.getSize().width);
+       System.out.println(contactos.getCellEditor(0, 2).getCellEditorValue());//.getCellEditorValue());//getCellEditor().getCellEditorValue());
+      for(int i=0;i<contactos.getColumnCount();i++)
+      {
+           
+      }
+       return res;
+  }
   public boolean insertar(String sql) {
     boolean valor = true;
     conectar();

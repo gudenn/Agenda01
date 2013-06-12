@@ -23,7 +23,7 @@ public class Render_CheckBox extends JCheckBox implements TableCellRenderer {
       //Color de fondo de la celda
       ( (JCheckBox) component).setBackground( new Color(0,200,0) );
       //obtiene valor boolean y coloca valor en el JCheckBox
-      System.out.println("aaaaaaaaaaaaaa");
+      
       boolean b = ((Boolean) value).booleanValue();
       ( (JCheckBox) component).setSelected( b );
       return ( (JCheckBox) component);

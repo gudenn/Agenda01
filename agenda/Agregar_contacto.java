@@ -24,7 +24,7 @@ public class Agregar_contacto extends javax.swing.JDialog {
     /** Creates new form Agregar_contacto */
      Operaciones operaciones;
      private java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-     public Agregar_contacto(java.awt.Frame parent, boolean modal, Operaciones operacioness,String fecha_por_defecto) {
+     public Agregar_contacto(java.awt.Frame parent, boolean modal, Operaciones operacioness,Date fecha_por_defecto) {
         super(parent, modal);
         
         this.operaciones =operacioness;
@@ -32,10 +32,10 @@ public class Agregar_contacto extends javax.swing.JDialog {
         init_componentes(fecha_por_defecto);
         
     }
-    public void init_componentes(String fecha_por_defecto)
+    public void init_componentes(Date fecha_por_defecto)
     {
-        Date date=new Date(fecha_por_defecto);
-        fecha_cumpleaño.setDate(date);
+       
+        fecha_cumpleaño.setDate(fecha_por_defecto);
     }
     private void limpiar(){
       
