@@ -8,7 +8,7 @@
  *
  * Created on 28-may-2013, 20:29:38
  */
-package agenda;
+
 
 import javax.swing.table.DefaultTableModel;
 

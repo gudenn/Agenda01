@@ -1,21 +1,27 @@
 /*
  * Package agenda.
  */
-package agenda;
 
-import Objetos.Persona;
+
+//import Objetos.Persona;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.Random;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  * Clase Operaciones
  * @author equipo de programacion Agil
  */
 public class Operaciones extends Conexion {
+
+    
 
   /**
    * Constructor for objects of class Operaciones
@@ -124,8 +130,9 @@ public class Operaciones extends Conexion {
     }
   }
   
-  public void nombrePersonas(DefaultTableModel tableModel) {
+  public void nombrePersonas(JTable table) {
     ResultSet resultado = null;
+    DefaultTableModel tableModel = new DefaultTableModel();
     tableModel.setRowCount(0);
     tableModel.setColumnCount(0);
     String sql = "select id,nombre from Persona";
@@ -136,12 +143,24 @@ public class Operaciones extends Conexion {
         for (int j = 1; j <= numeroColumna; j++) {
           tableModel.addColumn(resultado.getMetaData().getColumnName(j));
         }
+        tableModel.addColumn("marcar");
+        //por la columna marcar aumentamos una columna mas
+        
         while (resultado.next()) {
-          Object[] objetos = new Object[numeroColumna];
+          Object[] objetos = new Object[numeroColumna+1];
           for (int i = 1; i <= numeroColumna; i++) {
             objetos[i - 1] = resultado.getObject(i);
           }
+          objetos[numeroColumna]=false;
           tableModel.addRow(objetos);
+          table.setModel(tableModel);
+          
+          Celda_CheckBox s=new Celda_CheckBox();
+          //Se crea el JCheckBox en la columna indicada en getColumn, en este caso, la primera columna
+        table.getColumnModel().getColumn( 2 ).setCellEditor( new Celda_CheckBox() );
+        //para pintar la columna con el CheckBox en la tabla, en este caso, la primera columna
+        table.getColumnModel().getColumn( 2 ).setCellRenderer(new Render_CheckBox()); 
+          
         }
       }
     } catch (SQLException e) {

@@ -8,9 +8,9 @@
  *
  * Created on 28-may-2013, 14:27:14
  */
-package agenda;
+//package agenda;
 
-import Objetos.Persona;
+//import Objetos.Persona;
 import java.util.Date;
 import javax.swing.JOptionPane;
 

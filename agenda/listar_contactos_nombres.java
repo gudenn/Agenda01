@@ -8,7 +8,7 @@
  *
  * Created on 28-may-2013, 20:29:38
  */
-package agenda;
+
 
 import javax.swing.table.DefaultTableModel;
 
@@ -28,7 +28,7 @@ public class listar_contactos_nombres extends javax.swing.JDialog {
     }
     public void llenar_tabla()
     {
-        operaciones.nombrePersonas((DefaultTableModel)jTPersonas.getModel());
+        operaciones.nombrePersonas(jTPersonas);
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -114,7 +114,7 @@ public class listar_contactos_nombres extends javax.swing.JDialog {
         //evt.getID();
         //evt.getID
         operaciones.insertar("insert into evento_persona values(id,evt)");
-        operaciones.totalPersonas((DefaultTableModel)jTPersonas.getModel());
+        //operaciones.totalPersonas((DefaultTableModel)jTPersonas.getModel());
     }//GEN-LAST:event_aceptarActionPerformed
 
     /*

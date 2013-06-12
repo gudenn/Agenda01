@@ -1,7 +1,7 @@
 /*
  * Package agenda
  */
-package agenda;
+//package agenda;
 
 import java.awt.AlphaComposite;
 import java.awt.Graphics;

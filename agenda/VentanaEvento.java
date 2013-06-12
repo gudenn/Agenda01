@@ -1,7 +1,7 @@
 /*
  * Package agenda.
  */
-package agenda;
+
 
 /**
  * Calendario
