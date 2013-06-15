@@ -8,6 +8,8 @@
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -20,6 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.xml.bind.Unmarshaller.Listener;
 //comentario
 /**
  *
@@ -40,17 +43,14 @@ public class GUI extends javax.swing.JFrame {
        initComponents();
        operaciones=new Operaciones(); 
        operaciones.conectar();
-       
-      // init_componentes();
+       init_componentes();
     }
     public void init_componentes()
-    {/*
-       ifondo=new ImageIcon("imagenes/fondo-agenda.jpg");
-       lfondo.setIcon(ifondo);
-       lfondo.setBounds(0, 200, 3001, 200);
-       jPanel1.setLayout(null);
-       jPanel1.add(lfondo);
-       */
+    {
+        jLabel1.setText("Eventos");
+        String fecha=sdf.format(calendario.getDate());
+        jLabel2.setText(fecha);
+        listar_resp(operaciones.get_eventos(fecha)); 
     }
       public void FileCopy(String sourceFile, String destinationFile) {
 		System.out.println("Desde: " + sourceFile);
@@ -335,7 +335,7 @@ public class GUI extends javax.swing.JFrame {
            if(status==importar.APPROVE_OPTION){
            ruta = importar.getSelectedFile().getAbsolutePath();
                       actualizar_bd(ruta);
-                      System.out.println(ruta);
+                      //System.out.println(ruta);
            }
        }catch (Exception ex){
         ex.printStackTrace();
@@ -352,6 +352,11 @@ public class GUI extends javax.swing.JFrame {
           while(matriz.next())
           {
            JPanelTransparente paneli =new JPanelTransparente();
+           paneli.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                paneliMouseClicked(evt);
+            }
+        });
            paneli.setLayout(null);
            paneli.setBounds(5, (55*i)+10, 160, 50);
            paneli.setToolTipText(matriz.getString(3));
@@ -365,6 +370,8 @@ public class GUI extends javax.swing.JFrame {
            texto_hora.setBounds(30, 15, 100, 15);
            paneli.add(texto_hora);
            paneli.add(texto);
+           Evento evento=new Evento(Integer.parseInt(matriz.getString(1)),matriz.getString(2),matriz.getString(3),matriz.getString(4),matriz.getString(5));
+           paneli.set_evento(evento);
            
            panel_eventos.add(paneli);
            i++;
@@ -378,11 +385,30 @@ public class GUI extends javax.swing.JFrame {
         panel_eventos.setVisible(true);
         panel_eventos.repaint();
      
-        System.out.println("llego hasta recyperar consulta");
+        //System.out.println("llego hasta recyperar consulta");
+    }
+     private void paneliMouseClicked(java.awt.event.MouseEvent evt) {                                     
+        
+         Ventana_Evento ve=new Ventana_Evento(this, true);
+         Evento evento = ((JPanelTransparente)evt.getComponent()).get_evento();
+         ve.set_evento(evento);
+         
+         ve.setVisible(true);
     }
     /**
      * @param args the command line arguments
      */
+    class MiEvento implements ActionListener {
+
+    public void actionPerformed(ActionEvent e) {
+
+
+      /*if (e.getSource().equals(botonGuardar)) {
+       
+        
+      }*/
+    }
+  }
     public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel

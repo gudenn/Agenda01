@@ -34,23 +34,19 @@ public class Operaciones extends Conexion {
   public void insertarDatos(String nombEven, String fecha, String hrsIni, String hrsFin,JTable contactos) {
     int num;
     num = 10000 + (int) (Math.random() * 100000);
-    ArrayList<Integer> ids_contactos=filtrar_ids_contactos(contactos);
+    int id_persona=0;
     insertar("insert into EVENTO (id_evento,nombre_evento,fecha,horaini,horafin) values ('" + String.valueOf(num) + "','" + nombEven + "','" + fecha + "','" + hrsIni + "','" + hrsFin + "')");
-  }
-  public ArrayList<Integer> filtrar_ids_contactos(JTable contactos)
-  {
-      System.out.println("llega");
-      ArrayList<Integer> res=new ArrayList<Integer>();
-      //System.out.println(contactos.getModel().getCellEditor(1, 3).getCellEditorValue());
-      System.out.println(contactos.getSize().height);
-      System.out.println(contactos.getSize().width);
-       System.out.println(contactos.getCellEditor(0, 2).getCellEditorValue());//.getCellEditorValue());//getCellEditor().getCellEditorValue());
-      for(int i=0;i<contactos.getColumnCount();i++)
+   
+    for(int i=0;i<contactos.getRowCount();i++)
       {
-           
+          if((Boolean)contactos.getCellEditor(i, 2).getCellEditorValue())
+          {
+              id_persona=(Integer)contactos.getValueAt(i, 0);
+              insertar("insert into evento_persona (id,id_evento,id_persona) values ("+num+","+num+","+id_persona+")");
+          }
       }
-       return res;
   }
+  
   public boolean insertar(String sql) {
     boolean valor = true;
     conectar();
@@ -195,7 +191,7 @@ public class Operaciones extends Conexion {
   public ResultSet get_eventos(String fecha) {
     String auxfecha = "'" + fecha + "'";
     String sql = "select * from EVENTO where fecha=" + auxfecha;
-    System.out.println(sql);
+    //System.out.println(sql);
     conectar();
     ResultSet resultado = null;
     try {

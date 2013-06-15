@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.RenderingHints;
+import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.JPanel;
 
@@ -30,7 +31,9 @@ public class JPanelRound extends JPanel {
     super();
     setOpaque(false);
   }
-
+  public void mouseClicked( MouseEvent e ) {
+     System.out.println("aaaaaa");
+ } 
   @Override
   protected void paintComponent(Graphics g) {
     Graphics2D g2 = (Graphics2D) g;
@@ -94,4 +97,5 @@ public class JPanelRound extends JPanel {
   public void setArch(int arch) {
     this.arch = arch;
   }
+
 }

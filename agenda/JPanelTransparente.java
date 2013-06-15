@@ -7,6 +7,8 @@ import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseEvent;
+import javax.swing.JTable;
 //import javaapplication4.JPanelRound;
 
 /**
@@ -16,7 +18,8 @@ import java.awt.RenderingHints;
 public class JPanelTransparente extends JPanelRound {
 
   private float tran = 0.4f;
-
+  private Evento evento;
+  
   public JPanelTransparente() {
   }
 
@@ -30,12 +33,22 @@ public class JPanelTransparente extends JPanelRound {
     super.paintComponent(g);
     g2.setComposite(old);
   }
-
+ public void get_nombre() {
+     
+ } 
   public float getTran() {
     return tran;
   }
-
   public void setTran(float tran) {
     this.tran = tran;
   }
+  public void set_evento(Evento evento)
+  {
+      this.evento=evento;
+  }
+  public Evento get_evento()
+  {
+      return evento;
+  }
+  
 }

@@ -193,6 +193,7 @@ public class Agregar_contacto extends javax.swing.JDialog {
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null,"Error:"+ex.getMessage()+"\nVerifique");
         }
+        dispose();
 }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed

@@ -1,7 +1,7 @@
 /*
  * Package Objetos.
  */
-package Objetos;
+
 
 /**
  * Clase Persona
