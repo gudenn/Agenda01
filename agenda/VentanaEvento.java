@@ -149,8 +149,13 @@ public class VentanaEvento extends javax.swing.JDialog {
     fecha.setVerifyInputWhenFocusTarget(true);
     Date d = new Date();
     fecha.setMinSelectableDate(d);
+    if(fecha_por_defecto.after(d))
+    {
+        fecha.setDate(fecha_por_defecto);
+    }else{
+        fecha.setDate(d);
+    }
     
-    fecha.setDate(fecha_por_defecto);
    
     contenedor.add(fecha);
 
@@ -230,8 +235,7 @@ public class VentanaEvento extends javax.swing.JDialog {
       }
       
       if (e.getSource().equals(agregarNombre)) {
-            //listarnombres = new listar_contactos_nombres(this,true, operaciones);
-            //listarnombres.setLocation(this.location().x+150, this.location().y+80);
+            
             listarnombres.setVisible(true);
       }
 

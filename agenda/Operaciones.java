@@ -37,14 +37,18 @@ public class Operaciones extends Conexion {
     int id_persona=0;
     insertar("insert into EVENTO (id_evento,nombre_evento,fecha,horaini,horafin) values ('" + String.valueOf(num) + "','" + nombEven + "','" + fecha + "','" + hrsIni + "','" + hrsFin + "')");
    
+          int count=0;
     for(int i=0;i<contactos.getRowCount();i++)
-      {
-          if((Boolean)contactos.getCellEditor(i, 2).getCellEditorValue())
+      {/*
+          System.out.println((contactos.getCellEditor(i,2).getCellEditorValue()));
+          if(((Celda_CheckBox)contactos.getCellEditor(i,2)).get_value())
           {
+              count++;
               id_persona=(Integer)contactos.getValueAt(i, 0);
               insertar("insert into evento_persona (id,id_evento,id_persona) values ("+num+","+num+","+id_persona+")");
-          }
+          }*/
       }
+      System.out.println(count);
   }
   
   public boolean insertar(String sql) {

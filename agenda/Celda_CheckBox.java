@@ -20,11 +20,16 @@ public class Celda_CheckBox extends DefaultCellEditor implements TableCellRender
     public Celda_CheckBox() {
         super( new JCheckBox() );
     }
-
+    public boolean get_value()
+    {
+        return value;
+    }
     /** retorna valor de celda */
     @Override
     public Object getCellEditorValue() {
-         return ((JCheckBox)component).isSelected();        
+        
+        return ((JCheckBox)component).isSelected(); 
+         
     }
 
     /** Segun el valor de la celda selecciona/deseleciona el JCheckBox */
