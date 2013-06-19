@@ -101,7 +101,26 @@ public class Operaciones extends Conexion {
     }
     return resultado;
   }
-
+  public void grabarActualizado() {
+    insertar("UPDATE version SET  actualizado = 'TRUE' WHERE id = '1' ");
+  }
+  public boolean estaActualizado() {
+    ResultSet resultado = null;
+    String actual = "FALSE";
+    try {
+      resultado = consultar("SELECT actualizado FROM version WHERE id = '1' ");
+      if (resultado != null) {
+        while (resultado.next()) {
+          actual = (String)resultado.getObject(0);
+        }
+      }
+    } catch (SQLException e) {System.out.println("no se pudo obtener la version del software");}
+    
+    if (actual.equals("FALSE"))
+      return false;
+    else
+      return true;
+  }
   public void guardarUsuario(Persona persona) {
     insertar("insert into Persona values(" + persona.getId()
             + ",'" + persona.getnombre()

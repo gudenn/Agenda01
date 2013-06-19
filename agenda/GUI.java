@@ -5,6 +5,7 @@
 
 
 //import Objetos.Persona;
+//import agenda.controlVersionJDialog;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,6 +45,9 @@ public class GUI extends javax.swing.JFrame {
        operaciones=new Operaciones(); 
        operaciones.conectar();
        init_componentes();
+       controlVersionJDialog controlVersiones = new controlVersionJDialog(this, rootPaneCheckingEnabled);
+       controlVersiones.setVisible(true);
+       
     }
     public void init_componentes()
     {
