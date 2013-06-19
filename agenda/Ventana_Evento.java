@@ -1,8 +1,10 @@
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.swing.JLabel;
 
 /*
  * To change this template, choose Tools | Templates
@@ -22,6 +24,12 @@ public class Ventana_Evento extends javax.swing.JDialog {
 
     /** Creates new form Ventana_Evento */
     SimpleDateFormat formatoDeFecha = new SimpleDateFormat("dd/MM/yyyy");
+    JLabel texto_nombre=new JLabel();
+    JLabel texto_fecha=new JLabel();
+    JLabel texto_hora_ini=new JLabel();
+    JLabel texto_hora_fin=new JLabel();
+    
+    
     public Ventana_Evento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -30,7 +38,7 @@ public class Ventana_Evento extends javax.swing.JDialog {
     public void init_componentes()
     {
         
-        
+        setLayout(null);
         hora_fin.addItem("--");
     for (int h = 0; h < 24; h++) {
       hora_fin.addItem(h);
@@ -50,6 +58,13 @@ public class Ventana_Evento extends javax.swing.JDialog {
      */
     public void set_evento(Evento evento)
     {
+        inicializar_textos_labels();
+        
+        texto_nombre.setText(evento.getNombre());
+        texto_fecha.setText(evento.getFecha());
+        texto_hora_ini.setText(evento.getHora_Ini()+" : "+evento.getMinuto_ini());
+        texto_hora_fin.setText(evento.getHora_Fin()+" : "+evento.getMinuto_Fin());
+        
         nombre.setText(evento.getNombre());
         try{
         fecha.setDate(formatoDeFecha.parse(evento.getFecha()));
@@ -61,32 +76,64 @@ public class Ventana_Evento extends javax.swing.JDialog {
         hora_fin.setSelectedItem(evento.getHora_Fin());
         minuto_fin.setSelectedItem(evento.getMinuto_Fin());
         
+        
+        nombre.setVisible(false);
+        fecha.setVisible(false);
+        hora_fin.setVisible(false);
+        hora_ini.setVisible(false);
+        minuto_ini.setVisible(false);
+        minuto_fin.setVisible(false);
+        l_dos_puntos.setVisible(false);
+        l_dos_puntos1.setVisible(false);
+       /* l_nombre.setVisible(false);
+        l_hora.setVisible(false);
+        l_A.setVisible(false);
+        l_DE.setVisible(false);
+        l_contactos.setVisible(false);
+        l_fecha.setVisible(false);
+        */
+    }
+    public void inicializar_textos_labels()
+    {
+        texto_nombre.setBounds(100, 25, 100,30 );
+        texto_fecha.setBounds(100, 65, 100, 30);
+        texto_hora_ini.setBounds(130, 92, 100, 30);
+        texto_hora_fin.setBounds(130, 124, 100, 30);
+        
+        
+        add(texto_hora_ini);
+        add(texto_hora_fin);
+        add(texto_fecha);
+        add(texto_nombre);
+        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         l_nombre = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        l_fecha = new javax.swing.JLabel();
         l_hora = new javax.swing.JLabel();
         l_contactos = new javax.swing.JLabel();
         nombre = new javax.swing.JTextField();
         fecha = new com.toedter.calendar.JDateChooser();
         l_dos_puntos = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
         hora_ini = new javax.swing.JComboBox();
         minuto_ini = new javax.swing.JComboBox();
         hora_fin = new javax.swing.JComboBox();
         minuto_fin = new javax.swing.JComboBox();
         l_dos_puntos1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        l_DE = new javax.swing.JLabel();
+        l_A = new javax.swing.JLabel();
+        editar = new javax.swing.JButton();
+        cancelar = new javax.swing.JButton();
+        aceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         l_nombre.setText("Nombre :");
 
-        jLabel1.setText("Fecha :");
+        l_fecha.setText("Fecha :");
 
         l_hora.setText("Hora :");
 
@@ -96,57 +143,64 @@ public class Ventana_Evento extends javax.swing.JDialog {
 
         l_dos_puntos.setText(":");
 
-        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel1MouseClicked(evt);
+        l_dos_puntos1.setText(":");
+
+        l_DE.setText("De");
+
+        l_A.setText("A");
+
+        editar.setText("Editar");
+        editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        cancelar.setText("Cancelar");
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarActionPerformed(evt);
+            }
+        });
 
-        l_dos_puntos1.setText(":");
-
-        jLabel2.setText("De");
-
-        jLabel3.setText("A");
+        aceptar.setText("Aceptar");
+        aceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aceptarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(l_contactos)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel3)
+                                .addComponent(l_A)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(l_hora)
                                     .addGap(28, 28, 28)
-                                    .addComponent(jLabel2))))
+                                    .addComponent(l_DE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(editar)
+                                    .addComponent(l_contactos))))
                         .addGap(8, 8, 8))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
+                            .addComponent(l_fecha)
                             .addComponent(l_nombre))
                         .addGap(37, 37, 37)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addGap(10, 10, 10)
                             .addComponent(hora_fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -159,8 +213,13 @@ public class Ventana_Evento extends javax.swing.JDialog {
                             .addGap(18, 18, 18)
                             .addComponent(l_dos_puntos, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(minuto_ini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(174, 174, 174))
+                            .addComponent(minuto_ini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(aceptar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cancelar)
+                .addGap(93, 93, 93))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,33 +231,60 @@ public class Ventana_Evento extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(l_fecha))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(l_dos_puntos)
                     .addComponent(minuto_ini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(hora_ini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(l_hora)
-                    .addComponent(jLabel2))
+                    .addComponent(l_DE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(minuto_fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(hora_fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(l_dos_puntos1)
-                    .addComponent(jLabel3))
+                    .addComponent(l_A))
                 .addGap(3, 3, 3)
                 .addComponent(l_contactos)
-                .addGap(31, 31, 31)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(108, 108, 108)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(aceptar)
+                        .addComponent(editar))
+                    .addComponent(cancelar, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel1MouseClicked
+    private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
+        texto_fecha.setVisible(false);
+        texto_hora_fin.setVisible(false);
+        texto_hora_ini.setVisible(false);
+        texto_nombre.setVisible(false);
+        nombre.setVisible(true);
+        fecha.setVisible(true);
+        hora_ini.setVisible(true);
+        hora_fin.setVisible(true);
+        minuto_fin.setVisible(true);
+        minuto_ini.setVisible(true);
+        l_dos_puntos.setVisible(true);
+        l_dos_puntos1.setVisible(true);
+        l_A.setVisible(true);
+        l_DE.setVisible(true);
+        l_contactos.setVisible(true);
+        l_fecha.setVisible(true);
+    }//GEN-LAST:event_editarActionPerformed
+
+    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
+         dispose();  
+    }//GEN-LAST:event_cancelarActionPerformed
+
+    private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
+        dispose();
+    }//GEN-LAST:event_aceptarActionPerformed
   
     /**
      * @param args the command line arguments
@@ -219,16 +305,18 @@ public class Ventana_Evento extends javax.swing.JDialog {
         });
     }*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton aceptar;
+    private javax.swing.JButton cancelar;
+    private javax.swing.JButton editar;
     private com.toedter.calendar.JDateChooser fecha;
     private javax.swing.JComboBox hora_fin;
     private javax.swing.JComboBox hora_ini;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel l_A;
+    private javax.swing.JLabel l_DE;
     private javax.swing.JLabel l_contactos;
     private javax.swing.JLabel l_dos_puntos;
     private javax.swing.JLabel l_dos_puntos1;
+    private javax.swing.JLabel l_fecha;
     private javax.swing.JLabel l_hora;
     private javax.swing.JLabel l_nombre;
     private javax.swing.JComboBox minuto_fin;

@@ -39,14 +39,14 @@ public class Operaciones extends Conexion {
    
           int count=0;
     for(int i=0;i<contactos.getRowCount();i++)
-      {/*
+      {
           System.out.println((contactos.getCellEditor(i,2).getCellEditorValue()));
           if(((Celda_CheckBox)contactos.getCellEditor(i,2)).get_value())
           {
               count++;
               id_persona=(Integer)contactos.getValueAt(i, 0);
               insertar("insert into evento_persona (id,id_evento,id_persona) values ("+num+","+num+","+id_persona+")");
-          }*/
+          }
       }
       System.out.println(count);
   }

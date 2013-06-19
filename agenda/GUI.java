@@ -293,6 +293,7 @@ public class GUI extends javax.swing.JFrame {
         formulario_agregar_contacto=new Agregar_contacto(this,true, operaciones,calendario.getDate());
         formulario_agregar_contacto.setLocation(this.location().x+150, this.location().y+80);
         formulario_agregar_contacto.setVisible(true);
+        initComponents();//actualiza el panel
 }//GEN-LAST:event_agregar_contactoActionPerformed
 
     private void listar_contactosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listar_contactosActionPerformed
@@ -351,12 +352,19 @@ public class GUI extends javax.swing.JFrame {
           int i=0;  
           while(matriz.next())
           {
-           JPanelTransparente paneli =new JPanelTransparente();
+           final JPanelTransparente paneli =new JPanelTransparente();
            paneli.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 paneliMouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                paneliMouseExited(evt,paneli);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                paneliMouseEntered(evt,paneli);
+            }
         });
+           
            paneli.setLayout(null);
            paneli.setBounds(5, (55*i)+10, 160, 50);
            paneli.setToolTipText(matriz.getString(3));
@@ -394,6 +402,16 @@ public class GUI extends javax.swing.JFrame {
          ve.set_evento(evento);
          
          ve.setVisible(true);
+    }
+    private void paneliMouseEntered(java.awt.event.MouseEvent evt, JPanelTransparente paneli)
+    {
+        paneli.setColorSecundario(Color.cyan);
+        paneli.setSize(paneli.getSize().width+5, paneli.getSize().height+5);
+    }
+    private void paneliMouseExited(java.awt.event.MouseEvent evt, JPanelTransparente paneli)
+    {
+        paneli.setSize(paneli.getSize().width-5, paneli.getSize().height-5);
+        paneli.setColorSecundario(Color.black);
     }
     /**
      * @param args the command line arguments
