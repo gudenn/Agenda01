@@ -36,6 +36,7 @@ public class VentanaEvento extends javax.swing.JDialog {
   private JLabel label5;
   
   listar_contactos_nombres listarnombres;
+  agregar_nota nuevanota;
   Operaciones operaciones = new Operaciones();
   private JButton agregarNombre;
   private JButton agregarNota;
@@ -83,6 +84,7 @@ public class VentanaEvento extends javax.swing.JDialog {
     botonCancelar = new JButton();
     
     listarnombres = new listar_contactos_nombres(null, rootPaneCheckingEnabled, operaciones,contactos);
+    nuevanota     = new agregar_nota(null, rootPaneCheckingEnabled);
     agregarNombre = new JButton();
     agregarNota = new JButton();
     
@@ -249,7 +251,7 @@ public class VentanaEvento extends javax.swing.JDialog {
 
       if (e.getSource().equals(agregarNota)) {
             
-            listarnombres.setVisible(true);
+            nuevanota.setVisible(true);
       }
 
       if (e.getSource().equals(hora_fin)) {
