@@ -38,6 +38,7 @@ public class VentanaEvento extends javax.swing.JDialog {
   listar_contactos_nombres listarnombres;
   Operaciones operaciones = new Operaciones();
   private JButton agregarNombre;
+  private JButton agregarNota;
   
   private JButton botonGuardar;
   
@@ -64,6 +65,7 @@ public class VentanaEvento extends javax.swing.JDialog {
     minuto_fin.addActionListener(evento);
     botonCancelar.addActionListener(evento);
     agregarNombre.addActionListener(evento);
+    agregarNota.addActionListener(evento);
    
     }
 
@@ -82,6 +84,7 @@ public class VentanaEvento extends javax.swing.JDialog {
     
     listarnombres = new listar_contactos_nombres(null, rootPaneCheckingEnabled, operaciones,contactos);
     agregarNombre = new JButton();
+    agregarNota = new JButton();
     
     nombre = new TextField();
 
@@ -129,7 +132,12 @@ public class VentanaEvento extends javax.swing.JDialog {
     agregarNombre.setText("AgregarContacto");
     agregarNombre.setFont(new Font("Arial", Font.PLAIN, 13));
     contenedor.add(agregarNombre);
-    agregarNombre.setBounds(50, 160, 150, 20);
+    agregarNombre.setBounds(50, 160, 130, 20);
+    
+    agregarNota.setText("Agregar Nota");
+    agregarNota.setFont(new Font("Arial", Font.PLAIN, 13));
+    contenedor.add(agregarNota);
+    agregarNota.setBounds(200, 160, 130, 20);
 
     botonGuardar.setText("Guardar");
     botonGuardar.setFont(new Font("Arial", Font.PLAIN, 13));
@@ -235,6 +243,11 @@ public class VentanaEvento extends javax.swing.JDialog {
       }
       
       if (e.getSource().equals(agregarNombre)) {
+            
+            listarnombres.setVisible(true);
+      }
+
+      if (e.getSource().equals(agregarNota)) {
             
             listarnombres.setVisible(true);
       }
