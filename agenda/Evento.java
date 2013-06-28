@@ -1,5 +1,6 @@
 
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this template, choose Tools | Templates
@@ -21,9 +22,9 @@ public class Evento {
     private String hora_fin;
     private String minuto_fin;
     private String minuto_ini;
-    
     private JTable contactos=new JTable();
-
+    private Operaciones operaciones=new Operaciones();
+    
     public Evento(int id,String nombre,String fecha,String hora_ini,String hora_fin)
     {
          this.id=id;
@@ -36,7 +37,7 @@ public class Evento {
          this.hora_fin = hora_finalizacion[0];
          this.minuto_ini=hora_inicio[1];
          this.minuto_fin=hora_finalizacion[1];
-         
+         operaciones.listar_Personas_en_evento((DefaultTableModel)contactos.getModel(), this.id);
     }
     public void setNombre(String nombre)
     {

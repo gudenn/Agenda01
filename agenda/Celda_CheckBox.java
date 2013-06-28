@@ -27,7 +27,7 @@ public class Celda_CheckBox extends DefaultCellEditor implements TableCellRender
     /** retorna valor de celda */
     @Override
     public Object getCellEditorValue() {
-        
+        //System.out.print(((JCheckBox)component).isSelected());
         return ((JCheckBox)component).isSelected(); 
          
     }

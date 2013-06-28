@@ -36,6 +36,8 @@ public class listar_contactos_nombres extends javax.swing.JDialog {
     public void llenar_tabla()
     {
         operaciones.nombrePersonas(jTPersonas);
+       
+        
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -116,17 +118,7 @@ public class listar_contactos_nombres extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
-        
-        //int id = 10000 + (int) (Math.random() * 100000);
-        //evt.getID();
-        //evt.getID
-        //operaciones.insertar("insert into evento_persona values(id,evt)");
-        //operaciones.totalPersonas((DefaultTableModel)jTPersonas.getModel());
-       // operaciones.asignar_personas_a_eventos(jTPersonas);
-        //contactos=jTPersonas;
-        
-        //System.out.println("MAMA"+contactos.getSize().height+"sdf");
-      //System.out.println(contactos.getSize().width);
+     
       dispose();
       
       

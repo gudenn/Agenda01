@@ -1,5 +1,6 @@
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -37,7 +38,13 @@ public class Ventana_Evento extends javax.swing.JDialog {
     }
     public void init_componentes()
     {
-        
+        Font font = new Font("Courier", Font.BOLD,15);
+        texto_nombre.setFont(font);
+        texto_fecha.setFont(font);
+        texto_hora_fin.setFont(font);
+        texto_hora_ini.setFont(font);
+        tabla_Personas.setLayout(null);
+        nota.setLayout(null);
         setLayout(null);
         hora_fin.addItem("--");
     for (int h = 0; h < 24; h++) {
@@ -50,6 +57,9 @@ public class Ventana_Evento extends javax.swing.JDialog {
       minuto_fin.addItem(m);
       minuto_ini.addItem(m);
     }
+    
+   
+    
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -76,8 +86,10 @@ public class Ventana_Evento extends javax.swing.JDialog {
         hora_fin.setSelectedItem(evento.getHora_Fin());
         minuto_fin.setSelectedItem(evento.getMinuto_Fin());
         
-        
+        tabla_Personas.setModel(evento.get_contactos().getModel());
+        tabla_Personas.setEnabled(false);
         nombre.setVisible(false);
+        
         fecha.setVisible(false);
         hora_fin.setVisible(false);
         hora_ini.setVisible(false);
@@ -85,13 +97,7 @@ public class Ventana_Evento extends javax.swing.JDialog {
         minuto_fin.setVisible(false);
         l_dos_puntos.setVisible(false);
         l_dos_puntos1.setVisible(false);
-       /* l_nombre.setVisible(false);
-        l_hora.setVisible(false);
-        l_A.setVisible(false);
-        l_DE.setVisible(false);
-        l_contactos.setVisible(false);
-        l_fecha.setVisible(false);
-        */
+    
     }
     public void inicializar_textos_labels()
     {
@@ -128,6 +134,11 @@ public class Ventana_Evento extends javax.swing.JDialog {
         editar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
         aceptar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabla_Personas = new javax.swing.JTable();
+        l_nota = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        nota = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -170,13 +181,55 @@ public class Ventana_Evento extends javax.swing.JDialog {
             }
         });
 
+        tabla_Personas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tabla_Personas);
+
+        l_nota.setText("Notas :");
+
+        nota.setColumns(20);
+        nota.setRows(5);
+        jScrollPane2.setViewportView(nota);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(l_fecha)
+                            .addComponent(l_nombre))
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addComponent(hora_fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(l_dos_puntos1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(minuto_fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(hora_ini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(l_dos_puntos, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(minuto_ini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,38 +241,29 @@ public class Ventana_Evento extends javax.swing.JDialog {
                                     .addComponent(l_DE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(5, 5, 5)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(editar)
-                                    .addComponent(l_contactos))))
-                        .addGap(8, 8, 8))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(l_fecha)
-                            .addComponent(l_nombre))
-                        .addGap(37, 37, 37)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(hora_fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(l_dos_puntos1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(minuto_fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(hora_ini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(l_dos_puntos, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(minuto_ini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(aceptar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(editar)
+                                .addGap(27, 27, 27)
+                                .addComponent(aceptar)))
+                        .addGap(21, 21, 21)))
                 .addComponent(cancelar)
-                .addGap(93, 93, 93))
+                .addGap(57, 57, 57))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(l_contactos)
+                .addContainerGap(263, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(l_nota)
+                .addContainerGap(284, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,15 +289,21 @@ public class Ventana_Evento extends javax.swing.JDialog {
                     .addComponent(hora_fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(l_dos_puntos1)
                     .addComponent(l_A))
-                .addGap(3, 3, 3)
+                .addGap(18, 18, 18)
+                .addComponent(l_nota)
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(l_contactos)
-                .addGap(108, 108, 108)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(editar, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(aceptar)
-                        .addComponent(editar))
-                    .addComponent(cancelar, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addComponent(cancelar)
+                        .addComponent(aceptar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -276,6 +326,7 @@ public class Ventana_Evento extends javax.swing.JDialog {
         l_DE.setVisible(true);
         l_contactos.setVisible(true);
         l_fecha.setVisible(true);
+        tabla_Personas.setEnabled(true);
     }//GEN-LAST:event_editarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
@@ -311,6 +362,8 @@ public class Ventana_Evento extends javax.swing.JDialog {
     private com.toedter.calendar.JDateChooser fecha;
     private javax.swing.JComboBox hora_fin;
     private javax.swing.JComboBox hora_ini;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel l_A;
     private javax.swing.JLabel l_DE;
     private javax.swing.JLabel l_contactos;
@@ -319,8 +372,11 @@ public class Ventana_Evento extends javax.swing.JDialog {
     private javax.swing.JLabel l_fecha;
     private javax.swing.JLabel l_hora;
     private javax.swing.JLabel l_nombre;
+    private javax.swing.JLabel l_nota;
     private javax.swing.JComboBox minuto_fin;
     private javax.swing.JComboBox minuto_ini;
     private javax.swing.JTextField nombre;
+    private javax.swing.JTextArea nota;
+    private javax.swing.JTable tabla_Personas;
     // End of variables declaration//GEN-END:variables
 }

@@ -38,10 +38,13 @@ public class Operaciones extends Conexion {
     insertar("insert into EVENTO (id_evento,nombre_evento,fecha,horaini,horafin) values ('" + String.valueOf(num) + "','" + nombEven + "','" + fecha + "','" + hrsIni + "','" + hrsFin + "')");
    
           int count=0;
+          //contactos.getModel().setValueAt(true, 0, 2);
+          //contactos.getModel().setValueAt(false, 0, 2);
     for(int i=0;i<contactos.getRowCount();i++)
       {
-          System.out.println((contactos.getCellEditor(i,2).getCellEditorValue()));
-          if(((Celda_CheckBox)contactos.getCellEditor(i,2)).get_value())
+          
+          System.out.println((contactos.getModel().getValueAt(i, 2))+" "+contactos.getValueAt(i, 1));
+          if((Boolean)contactos.getModel().getValueAt(i, 2))
           {
               count++;
               id_persona=(Integer)contactos.getValueAt(i, 0);
@@ -163,7 +166,39 @@ public class Operaciones extends Conexion {
       }
     }
   }
-  
+  public void listar_Personas_en_evento(DefaultTableModel tableModel,int id_evento) {
+    ResultSet resultado = null;
+    tableModel.setRowCount(0);
+    tableModel.setColumnCount(0);
+    String sql = "select p.nombre from Persona p, evento e, evento_persona ep where  e.id_evento="+id_evento+" and e.id_evento=ep.id_evento and ep.id_persona=p.id";
+    try {
+      resultado = consultar(sql);
+      if (resultado != null) {
+        int numeroColumna = resultado.getMetaData().getColumnCount();
+        for (int j = 1; j <= numeroColumna; j++) {
+          tableModel.addColumn(resultado.getMetaData().getColumnName(j));
+        }
+        while (resultado.next()) {
+          Object[] objetos = new Object[numeroColumna];
+          for (int i = 1; i <= numeroColumna; i++) {
+            objetos[i - 1] = resultado.getObject(i);
+          }
+          tableModel.addRow(objetos);
+        }
+      }
+    } catch (SQLException e) {
+    } finally {
+      try {
+        consulta.close();
+        conexion.close();
+        if (resultado != null) {
+          resultado.close();
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
   public void nombrePersonas(JTable table) {
     ResultSet resultado = null;
     DefaultTableModel tableModel = new DefaultTableModel();
@@ -187,6 +222,7 @@ public class Operaciones extends Conexion {
           }
           objetos[numeroColumna]=false;
           tableModel.addRow(objetos);
+
           table.setModel(tableModel);
           
           Celda_CheckBox s=new Celda_CheckBox();
@@ -196,7 +232,7 @@ public class Operaciones extends Conexion {
         table.getColumnModel().getColumn( 2 ).setCellRenderer(new Render_CheckBox()); 
           
         }
-      }
+       }
     } catch (SQLException e) {
     } finally {
       try {
