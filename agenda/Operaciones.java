@@ -31,13 +31,18 @@ public class Operaciones extends Conexion {
   public Operaciones() {
     // initialise instance variables
   }
-
+public void borrar_evento(int id)
+{
+    
+    insertar("delete from EVENTo where id_evento="+id);
+   
+}
   public void insertarDatos(String nombEven, String fecha, String hrsIni, String hrsFin, String nota,JTable contactos) {
     int num;
     num = 10000 + (int) (Math.random() * 100000);
     int id_persona=0;
     insertar("insert into EVENTO (id_evento,nombre_evento,fecha,horaini,horafin,nota) values ('" + String.valueOf(num) + "','" + nombEven + "','" + fecha + "','" + hrsIni + "','" + hrsFin + "','" + nota + "')");
-   
+    
         
          
     for(int i=0;i<contactos.getRowCount();i++)
@@ -51,10 +56,12 @@ public class Operaciones extends Conexion {
               insertar("insert into evento_persona (id,id_evento,id_persona) values ("+num+","+num+","+id_persona+")");
           }
       }
+   
     
   }
   
   public boolean insertar(String sql) {
+     
     boolean valor = true;
     conectar();
     try {

@@ -6,6 +6,10 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /*
  * To change this template, choose Tools | Templates
@@ -24,12 +28,16 @@ import javax.swing.JLabel;
 public class Ventana_Evento extends javax.swing.JDialog {
 
     /** Creates new form Ventana_Evento */
+     private java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat formatoDeFecha = new SimpleDateFormat("dd/MM/yyyy");
     JLabel texto_nombre=new JLabel();
     JLabel texto_fecha=new JLabel();
     JLabel texto_hora_ini=new JLabel();
     JLabel texto_hora_fin=new JLabel();
-    
+     private JScrollPane panel_tabla=new JScrollPane();
+     private Evento evet;
+     private JScrollPane scrollPane;
+     private JTable tabla_contactos;
     
     public Ventana_Evento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -68,19 +76,28 @@ public class Ventana_Evento extends javax.swing.JDialog {
      */
     public void set_evento(Evento evento)
     {
+        evet=evento;
+        
         inicializar_textos_labels();
         
         texto_nombre.setText(evento.getNombre());
         texto_fecha.setText(evento.getFecha());
         texto_hora_ini.setText(evento.getHora_Ini()+" : "+evento.getMinuto_ini());
         texto_hora_fin.setText(evento.getHora_Fin()+" : "+evento.getMinuto_Fin());
-        
+        nota.setText(evento.get_nota());
+        nota.enable(false);
         nombre.setText(evento.getNombre());
         try{
         fecha.setDate(formatoDeFecha.parse(evento.getFecha()));
         } catch (ParseException ex) {
          ex.printStackTrace();
         }
+        
+        hora_ini.setSize(50, 20);
+        hora_fin.setSize(50, 20); 
+        minuto_fin.setSize(50, 20);
+        minuto_ini.setSize(50, 20);
+        
         hora_ini.setSelectedItem(Integer.parseInt(evento.getHora_Ini()));
         minuto_ini.setSelectedItem(Integer.parseInt(evento.getMinuto_ini()));
         hora_fin.setSelectedItem(evento.getHora_Fin());
@@ -213,7 +230,7 @@ public class Ventana_Evento extends javax.swing.JDialog {
                             .addComponent(l_nombre))
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -228,25 +245,20 @@ public class Ventana_Evento extends javax.swing.JDialog {
                                     .addGap(18, 18, 18)
                                     .addComponent(l_dos_puntos, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(minuto_ini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(minuto_ini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(l_A)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(l_hora)
-                                    .addGap(28, 28, 28)
-                                    .addComponent(l_DE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(l_A)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addComponent(editar)
-                                .addGap(27, 27, 27)
-                                .addComponent(aceptar)))
+                                .addComponent(l_hora)
+                                .addGap(28, 28, 28)
+                                .addComponent(l_DE)))
                         .addGap(21, 21, 21)))
-                .addComponent(cancelar)
-                .addGap(57, 57, 57))
+                .addGap(138, 138, 138))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(l_contactos)
@@ -256,14 +268,13 @@ public class Ventana_Evento extends javax.swing.JDialog {
                 .addComponent(l_nota)
                 .addContainerGap(284, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addComponent(editar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(aceptar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cancelar)
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,19 +302,18 @@ public class Ventana_Evento extends javax.swing.JDialog {
                     .addComponent(l_A))
                 .addGap(18, 18, 18)
                 .addComponent(l_nota)
-                .addGap(14, 14, 14)
+                .addGap(21, 21, 21)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(l_contactos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(15, 15, 15)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(editar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cancelar)
-                        .addComponent(aceptar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(76, 76, 76)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(editar)
+                    .addComponent(aceptar)
+                    .addComponent(cancelar))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         pack();
@@ -327,16 +337,75 @@ public class Ventana_Evento extends javax.swing.JDialog {
         l_contactos.setVisible(true);
         l_fecha.setVisible(true);
         tabla_Personas.setEnabled(true);
+        tabla_Personas.setVisible(false);
+       jScrollPane1.setVisible(false);
+       nota.enable(true);
+        editar_tabla();
     }//GEN-LAST:event_editarActionPerformed
-
+    public void editar_tabla()
+    {
+        listar_contactos_nombres listar =new listar_contactos_nombres(null, rootPaneCheckingEnabled);
+        tabla_contactos=listar.get_tabla();
+        scrollPane = new JScrollPane(tabla_contactos);
+        panel_tabla=listar.get_panel_tabla();
+        scrollPane.setBounds(80, 325, 200, 150);
+        //panel_tabla.setLayout(null);
+        add(scrollPane);
+    }
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
          dispose();  
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
+       
+        validar_y_guardar();
         dispose();
     }//GEN-LAST:event_aceptarActionPerformed
-  
+    public void validar_y_guardar() {
+
+    System.out.println(fecha.isValidateRoot());
+    if (nombre.getText().trim().length() == 0) {
+      JOptionPane.showMessageDialog(this, "El nombre del evento esta vacio");
+    } else {
+      if (((hora_fin.getSelectedItem().equals("--")))) {
+        String hrs_ini = "" + hora_ini.getSelectedItem() + ":" + minuto_ini.getSelectedItem();
+        String hrs_fin = "" + hora_fin.getSelectedItem() + ":" + minuto_fin.getSelectedItem();
+        String note    = nota.getText();
+        try {
+          String date = sdf.format(fecha.getDate());
+          System.out.println(date + " " + hrs_ini + " " + hrs_fin);
+          Operaciones o = new Operaciones();
+          o.borrar_evento(evet.get_id());
+          o.insertarDatos(nombre.getText(), date, hrs_ini, hrs_fin, note ,tabla_contactos);
+          dispose();
+        } catch (Exception e) {
+          JOptionPane.showMessageDialog(this, "la fecha no es valida+++++++++++++");
+
+        }
+      } else {
+        if (((int) hora_ini.getSelectedItem()) > ((int) hora_fin.getSelectedItem())) {
+          JOptionPane.showMessageDialog(this, "la hora de finalizacion del evento es menor que la hora de inicio");
+        } else {
+
+          String hrs_ini = "" + hora_ini.getSelectedItem() + ":" + minuto_ini.getSelectedItem();
+          String hrs_fin = "" + hora_fin.getSelectedItem() + ":" + minuto_fin.getSelectedItem();
+          String note    = nota.getText();
+
+          try {
+            String date = sdf.format(fecha.getDate());
+            System.out.println(date + " " + hrs_ini + " " + hrs_fin);
+            Operaciones o = new Operaciones();
+            o.borrar_evento(evet.get_id());
+            o.insertarDatos(nombre.getText(), date, hrs_ini, hrs_fin,note,tabla_contactos);
+            dispose();
+          } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "la fecha no es valida");
+
+          }
+        }
+      }
+    }
+  }
     /**
      * @param args the command line arguments
      */

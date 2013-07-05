@@ -20,6 +20,7 @@ public class listar_contactos_nombres extends JDialog {
     private JButton cancelar=new JButton();;
     private JPanel panel_tabla= new JPanel();
     private MiEvento evento=new MiEvento();
+    private JScrollPane scrollPane;
     Operaciones operaciones= new Operaciones();
 
     public listar_contactos_nombres(java.awt.Frame parent, boolean modal) {
@@ -55,8 +56,8 @@ public class listar_contactos_nombres extends JDialog {
             }
         };
        // table.setPreferredScrollableViewportSize(table.getPreferredSize());
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(5, 5, 400, 200);
+        scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(20, 5, 200, 200);
         panel_tabla.add(scrollPane);
        // getContentPane().setLayout(null);
         getContentPane().add(aceptar);
@@ -74,14 +75,18 @@ public class listar_contactos_nombres extends JDialog {
     {
         return table;
     }
+    public JScrollPane get_panel_tabla()
+    {
+        return scrollPane;
+    }
     public void iniciando_componentes()
     {
-        panel_tabla.setBounds(5, 5, 400, 200);
+        panel_tabla.setBounds(5, 5, 200, 200);
         panel_tabla.setLayout(null);
         aceptar.setBounds(60, 230, 100, 20);
         aceptar.setText("Aceptar");
         aceptar.addActionListener(evento);
-        cancelar.setBounds(230, 230, 100, 20);
+        cancelar.setBounds(180, 230, 100, 20);
         cancelar.setText("Cancelar");
         cancelar.addActionListener(evento);
     }

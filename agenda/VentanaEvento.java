@@ -84,7 +84,7 @@ public class VentanaEvento extends javax.swing.JDialog {
     botonCancelar = new JButton();
     
     listarnombres = new listar_contactos_nombres(null, rootPaneCheckingEnabled);
-    listarnombres.setBounds(150, 150,425,300);
+    listarnombres.setBounds(150, 150,300,300);
     nuevanota     = new agregar_nota(null, rootPaneCheckingEnabled);
     agregarNombre = new JButton();
     agregarNota = new JButton();

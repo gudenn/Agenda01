@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Evento {
     private int id;
+    private String nota;
     private String nombre;
     private String fecha;
     private String[] hora_inicio= new String[2];
@@ -25,8 +26,9 @@ public class Evento {
     private JTable contactos=new JTable();
     private Operaciones operaciones=new Operaciones();
     
-    public Evento(int id,String nombre,String fecha,String hora_ini,String hora_fin)
+    public Evento(int id,String nombre,String fecha,String hora_ini,String hora_fin, String not)
     {
+        this.nota=not;
          this.id=id;
          this.nombre = nombre;
          this.fecha = fecha;
@@ -71,7 +73,10 @@ public class Evento {
     {
       
     }
-  
+  public int get_id()
+  {
+  return id;
+  }
   public JTable get_contactos()
   {
       return contactos;
@@ -101,7 +106,14 @@ public class Evento {
      {
          return minuto_fin;
      }
-     
+     public String get_nota()
+     {
+         return nota;
+     }
+     public void set_nota(String not)
+     {
+         nota=not;   
+     }
  }
     
 
