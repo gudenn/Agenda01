@@ -194,11 +194,12 @@ public class VentanaEvento extends javax.swing.JDialog {
       if (((hora_fin.getSelectedItem().equals("--")))) {
         String hrs_ini = "" + hora_ini.getSelectedItem() + ":" + minuto_ini.getSelectedItem();
         String hrs_fin = "" + hora_fin.getSelectedItem() + ":" + minuto_fin.getSelectedItem();
+        String nota    = nuevanota.getNota();
         try {
           String date = sdf.format(fecha.getDate());
           System.out.println(date + " " + hrs_ini + " " + hrs_fin);
           Operaciones o = new Operaciones();
-          o.insertarDatos(nombre.getText(), date, hrs_ini, hrs_fin,listarnombres.get_tabla());
+          o.insertarDatos(nombre.getText(), date, hrs_ini, hrs_fin, nota ,listarnombres.get_tabla());
           dispose();
         } catch (Exception e) {
           JOptionPane.showMessageDialog(this, "la fecha no es valida");
@@ -211,11 +212,13 @@ public class VentanaEvento extends javax.swing.JDialog {
 
           String hrs_ini = "" + hora_ini.getSelectedItem() + ":" + minuto_ini.getSelectedItem();
           String hrs_fin = "" + hora_fin.getSelectedItem() + ":" + minuto_fin.getSelectedItem();
+          String nota    = nuevanota.getNota();
+
           try {
             String date = sdf.format(fecha.getDate());
             System.out.println(date + " " + hrs_ini + " " + hrs_fin);
             Operaciones o = new Operaciones();
-            o.insertarDatos(nombre.getText(), date, hrs_ini, hrs_fin,contactos);
+            o.insertarDatos(nombre.getText(), date, hrs_ini, hrs_fin,nota,contactos);
             dispose();
           } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "la fecha no es valida");
