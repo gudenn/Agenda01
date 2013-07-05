@@ -15,7 +15,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
-
+import javax.swing.*;
+import javax.swing.table.*;
 /**
  * Clase Operaciones
  * @author equipo de programacion Agil
@@ -37,21 +38,20 @@ public class Operaciones extends Conexion {
     int id_persona=0;
     insertar("insert into EVENTO (id_evento,nombre_evento,fecha,horaini,horafin) values ('" + String.valueOf(num) + "','" + nombEven + "','" + fecha + "','" + hrsIni + "','" + hrsFin + "')");
    
-          int count=0;
-          //contactos.getModel().setValueAt(true, 0, 2);
-          //contactos.getModel().setValueAt(false, 0, 2);
+        
+         
     for(int i=0;i<contactos.getRowCount();i++)
       {
-          
-          System.out.println((contactos.getModel().getValueAt(i, 2))+" "+contactos.getValueAt(i, 1));
+        
+       
           if((Boolean)contactos.getModel().getValueAt(i, 2))
           {
-              count++;
+              
               id_persona=(Integer)contactos.getValueAt(i, 0);
               insertar("insert into evento_persona (id,id_evento,id_persona) values ("+num+","+num+","+id_persona+")");
           }
       }
-      System.out.println(count);
+    
   }
   
   public boolean insertar(String sql) {
@@ -199,11 +199,10 @@ public class Operaciones extends Conexion {
       }
     }
   }
-  public void nombrePersonas(JTable table) {
+  public DefaultTableModel nombrePersonas() {
     ResultSet resultado = null;
     DefaultTableModel tableModel = new DefaultTableModel();
-    tableModel.setRowCount(0);
-    tableModel.setColumnCount(0);
+ 
     String sql = "select id,nombre from Persona";
     try {
       resultado = consultar(sql);
@@ -213,25 +212,19 @@ public class Operaciones extends Conexion {
           tableModel.addColumn(resultado.getMetaData().getColumnName(j));
         }
         tableModel.addColumn("marcar");
-        //por la columna marcar aumentamos una columna mas
+      
         
         while (resultado.next()) {
-          Object[] objetos = new Object[numeroColumna+1];
+          Object[] objetos = new Object[3];
           for (int i = 1; i <= numeroColumna; i++) {
             objetos[i - 1] = resultado.getObject(i);
           }
-          objetos[numeroColumna]=false;
+          objetos[2]=false;
           tableModel.addRow(objetos);
-
-          table.setModel(tableModel);
-          
-          Celda_CheckBox s=new Celda_CheckBox();
-          //Se crea el JCheckBox en la columna indicada en getColumn, en este caso, la primera columna
-        table.getColumnModel().getColumn( 2 ).setCellEditor( new Celda_CheckBox() );
-        //para pintar la columna con el CheckBox en la tabla, en este caso, la primera columna
-        table.getColumnModel().getColumn( 2 ).setCellRenderer(new Render_CheckBox()); 
-          
+                  
+        
         }
+     
        }
     } catch (SQLException e) {
     } finally {
@@ -245,6 +238,7 @@ public class Operaciones extends Conexion {
         e.printStackTrace();
       }
     }
+    return tableModel;
   }
 
   public ResultSet get_eventos(String fecha) {
