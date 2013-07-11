@@ -52,7 +52,10 @@ public class Celda_CheckBox extends DefaultCellEditor implements TableCellRender
     }
 
     /** retorna componente */
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+    public Component getTableCellRendererComponent(JTable table, 
+                                                    Object value, boolean isSelected, 
+                                                    boolean hasFocus,
+                                                    int row, int column) {
          if (value == null)
             return null;         
          return ( (JCheckBox) component );

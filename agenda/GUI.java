@@ -1,9 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 //import Objetos.Persona;
 //import agenda.controlVersionJDialog;
 import java.awt.Color;
@@ -24,67 +18,70 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.bind.Unmarshaller.Listener;
-//comentario
+
 /**
  *
  * @author taniao
  */
 public class GUI extends javax.swing.JFrame {
+
     String actualizacion_fecha;
     Operaciones operaciones;
-    listar_contactos listarcontactos; 
+    listar_contactos listarcontactos;
     VentanaEvento crear_evento;
     Agregar_contacto formulario_agregar_contacto;
-    ImageIcon ifondo=new ImageIcon();
-    JLabel lfondo=new JLabel();
-    private java.text.SimpleDateFormat sdf=new java.text.SimpleDateFormat("dd/MM/yyyy");  
-    
-    
+    ImageIcon ifondo = new ImageIcon();
+    JLabel lfondo = new JLabel();
+    private java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+
     public GUI() {
-       initComponents();
-       operaciones=new Operaciones(); 
-       operaciones.conectar();
-       init_componentes();
-       controlVersionJDialog controlVersiones = new controlVersionJDialog(this, rootPaneCheckingEnabled);
-       controlVersiones.setVisible(true);
-       
+        initComponents();
+        operaciones = new Operaciones();
+        operaciones.conectar();
+        init_componentes();
+        controlVersionJDialog controlVersiones = new controlVersionJDialog(this, rootPaneCheckingEnabled);
+        controlVersiones.setVisible(true);
+
     }
-    public void init_componentes()
-    {
+
+    public void init_componentes() {
         jLabel1.setText("Eventos");
-        String fecha=sdf.format(calendario.getDate());
-        actualizacion_fecha=fecha;
+        String fecha = sdf.format(calendario.getDate());
+        actualizacion_fecha = fecha;
         jLabel2.setText(fecha);
-        
-        listar_resp(operaciones.get_eventos(fecha)); 
-        
-        
+
+        listar_resp(operaciones.get_eventos(fecha));
+
+
+    }
+
+    public void FileCopy(String sourceFile, String destinationFile) {
+        System.out.println("Desde: " + sourceFile);
+        System.out.println("Hacia: " + destinationFile);
+
+        try {
+            File inFile = new File(sourceFile);
+            File outFile = new File(destinationFile);
+
+            FileInputStream in = new FileInputStream(inFile);
+            FileOutputStream out = new FileOutputStream(outFile);
+
+            int c;
+            while ((c = in.read()) != -1) {
+                out.write(c);
+            }
+
+            in.close();
+            out.close();
+        } catch (IOException e) {
+            System.err.println("Hubo un error de entrada/salida!!!");
         }
-      public void FileCopy(String sourceFile, String destinationFile) {
-		System.out.println("Desde: " + sourceFile);
-		System.out.println("Hacia: " + destinationFile);
+    }
 
-		try {
-			File inFile = new File(sourceFile);
-			File outFile = new File(destinationFile);
+    public void actualizar_bd(String ruta) {
+        operaciones.actualizar_bd(ruta);
+    }
 
-			FileInputStream in = new FileInputStream(inFile);
-			FileOutputStream out = new FileOutputStream(outFile);
-
-			int c;
-			while( (c = in.read() ) != -1)
-				out.write(c);
-
-			in.close();
-			out.close();
-		} catch(IOException e) {
-			System.err.println("Hubo un error de entrada/salida!!!");
-		}
-	}
-      public void actualizar_bd(String ruta)
-      {
-          operaciones.actualizar_bd(ruta);
-      }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -286,169 +283,171 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void calendarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calendarioMouseReleased
-        System.out.println("jjjjjjjjjjjjj");
+        System.out.println("Se dejo de apretar el mouse");
 }//GEN-LAST:event_calendarioMouseReleased
 
     private void Boton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_buscarActionPerformed
         //captur evento del boton
         jLabel1.setText("Eventos");
-        String fecha=sdf.format(calendario.getDate());
+        String fecha = sdf.format(calendario.getDate());
         jLabel2.setText(fecha);
         listar_resp(operaciones.get_eventos(fecha));
 }//GEN-LAST:event_Boton_buscarActionPerformed
 
     private void agregar_eventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_eventoActionPerformed
-      
-        String hora=""+calendario.getDate().getHours();
-        String minuto=""+calendario.getDate().getMinutes();
-        crear_evento = new VentanaEvento(calendario.getDate(),Integer.parseInt(hora),Integer.parseInt(minuto));
-        crear_evento.setLocation(this.location().x+150, this.location().y+80);
+
+        String hora = "" + calendario.getDate().getHours();
+        String minuto = "" + calendario.getDate().getMinutes();
+        crear_evento = new VentanaEvento(calendario.getDate(), 
+                                        Integer.parseInt(hora), 
+                                        Integer.parseInt(minuto));
+        crear_evento.setLocation(this.location().x + 150, this.location().y + 80);
         crear_evento.setVisible(true);
 }//GEN-LAST:event_agregar_eventoActionPerformed
 
     private void agregar_contactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_contactoActionPerformed
-   
-        formulario_agregar_contacto=new Agregar_contacto(this,true, operaciones,calendario.getDate());
-        formulario_agregar_contacto.setLocation(this.location().x+150, this.location().y+80);
+
+        formulario_agregar_contacto = new Agregar_contacto(this, true, operaciones, calendario.getDate());
+        formulario_agregar_contacto.setLocation(this.location().x + 150, this.location().y + 80);
         formulario_agregar_contacto.setVisible(true);
         initComponents();//actualiza el panel
 }//GEN-LAST:event_agregar_contactoActionPerformed
 
     private void listar_contactosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listar_contactosActionPerformed
-        listarcontactos=new listar_contactos(this,true, operaciones);
-        listarcontactos.setLocation(this.location().x+150, this.location().y+80);
+        listarcontactos = new listar_contactos(this, true, operaciones);
+        listarcontactos.setLocation(this.location().x + 150, this.location().y + 80);
         listarcontactos.setVisible(true);
 }//GEN-LAST:event_listar_contactosActionPerformed
 
     private void exportar_bdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportar_bdActionPerformed
-       JFileChooser exportar=new JFileChooser();
-       String ruta = "";
-       try{
-           exportar.setFileSelectionMode(exportar.DIRECTORIES_ONLY);
-           int status= exportar.showSaveDialog(null);
-           if(status==exportar.APPROVE_OPTION){
-           ruta = exportar.getSelectedFile().getAbsolutePath();
-           ruta=ruta+"/registro.db";
-           if(new File(ruta).exists())
-                {
-                if(JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(this,"El fichero existe,deseas reemplazarlo?","Titulo",JOptionPane.YES_NO_OPTION))
-                  {
-                      
-                      FileCopy("BD/registro.db", ruta);
-                  }
-                }else{
-                     FileCopy("BD/registro.db", ruta);
-               }
-             }
-       }catch (Exception ex){
-        ex.printStackTrace();
-       }
- 
+        JFileChooser exportar = new JFileChooser();
+        String ruta = "";
+        try {
+            exportar.setFileSelectionMode(exportar.DIRECTORIES_ONLY);
+            int status = exportar.showSaveDialog(null);
+            if (status == exportar.APPROVE_OPTION) {
+                ruta = exportar.getSelectedFile().getAbsolutePath();
+                ruta = ruta + "/registro.db";
+                if (new File(ruta).exists()) {
+                    if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(this, 
+                            "El fichero existe,deseas reemplazarlo?", 
+                            "Titulo", JOptionPane.YES_NO_OPTION)) {
+                        FileCopy("BD/registro.db", ruta);
+                    }
+                } else {
+                    FileCopy("BD/registro.db", ruta);
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }//GEN-LAST:event_exportar_bdActionPerformed
 
     private void importar_bdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importar_bdActionPerformed
-        JFileChooser importar=new JFileChooser();
+        JFileChooser importar = new JFileChooser();
         String ruta = "";
-        try{
-           int status= importar.showSaveDialog(null);
-           if(status==importar.APPROVE_OPTION){
-           ruta = importar.getSelectedFile().getAbsolutePath();
-                      actualizar_bd(ruta);
-                      //System.out.println(ruta);
-           }
-       }catch (Exception ex){
-        ex.printStackTrace();
-       }
+        try {
+            int status = importar.showSaveDialog(null);
+            if (status == importar.APPROVE_OPTION) {
+                ruta = importar.getSelectedFile().getAbsolutePath();
+                actualizar_bd(ruta);
+                //System.out.println(ruta);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_importar_bdActionPerformed
 
     private void actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarActionPerformed
-        listar_resp(operaciones.get_eventos(actualizacion_fecha)); 
+        listar_resp(operaciones.get_eventos(actualizacion_fecha));
     }//GEN-LAST:event_actualizarActionPerformed
 
-    public void listar_resp(ResultSet matriz)
-    {
+    public void listar_resp(ResultSet matriz) {
         //recorrer matriz de resultados y colocar en el panel de de paneles.
         panel_eventos.removeAll();
-        
-        try{
-          int i=0;  
-          while(matriz.next())
-          {
-           final JPanelTransparente paneli =new JPanelTransparente();
-           paneli.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                paneliMouseClicked(evt);
+
+        try {
+            int i = 0;
+            while (matriz.next()) {
+                final JPanelTransparente paneli = new JPanelTransparente();
+                paneli.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        paneliMouseClicked(evt);
+                    }
+
+                    public void mouseExited(java.awt.event.MouseEvent evt) {
+                        paneliMouseExited(evt, paneli);
+                    }
+
+                    public void mouseEntered(java.awt.event.MouseEvent evt) {
+                        paneliMouseEntered(evt, paneli);
+                    }
+                });
+
+                paneli.setLayout(null);
+                paneli.setBounds(5, (55 * i) + 10, 160, 50);
+                paneli.setToolTipText(matriz.getString(3));
+
+                JLabel texto = new JLabel();
+                texto.setText(matriz.getString(2));
+                texto.setBounds(30, 0, 150, 15);
+
+                JLabel texto_hora = new JLabel();
+                texto_hora.setText("De " + matriz.getString(4) + " a " + matriz.getString(5));
+                texto_hora.setBounds(30, 15, 100, 15);
+                paneli.add(texto_hora);
+                paneli.add(texto);
+                Evento evento = new Evento(Integer.parseInt(matriz.getString(1)),
+                                            matriz.getString(2), matriz.getString(3), 
+                                            matriz.getString(4), matriz.getString(5), 
+                                            matriz.getString(6));
+                paneli.set_evento(evento);
+
+                panel_eventos.add(paneli);
+                i++;
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                paneliMouseExited(evt,paneli);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                paneliMouseEntered(evt,paneli);
-            }
-        });
-           
-           paneli.setLayout(null);
-           paneli.setBounds(5, (55*i)+10, 160, 50);
-           paneli.setToolTipText(matriz.getString(3));
-           
-           JLabel texto=new JLabel();
-           texto.setText(matriz.getString(2));
-           texto.setBounds(30, 0, 150, 15);
-           
-           JLabel texto_hora=new JLabel();
-           texto_hora.setText("De "+matriz.getString(4)+" a "+matriz.getString(5));
-           texto_hora.setBounds(30, 15, 100, 15);
-           paneli.add(texto_hora);
-           paneli.add(texto);
-           Evento evento=new Evento(Integer.parseInt(matriz.getString(1)),matriz.getString(2),matriz.getString(3),matriz.getString(4),matriz.getString(5),matriz.getString(6));
-           paneli.set_evento(evento);
-           
-           panel_eventos.add(paneli);
-           i++;
-          }  
-          
-            
-          }catch(Exception e){
-             System.out.println("Problema al imprimir la base de datos en listar_resp");
+
+
+        } catch (Exception e) {
+            System.out.println("Problema al imprimir la base de datos en listar_resp");
         }
         //panel.repaint();
         panel_eventos.setVisible(true);
         panel_eventos.repaint();
-     
+
         //System.out.println("llego hasta recyperar consulta");
     }
-     private void paneliMouseClicked(java.awt.event.MouseEvent evt) {                                     
-        
-         Ventana_Evento ve=new Ventana_Evento(this, true);
-         Evento evento = ((JPanelTransparente)evt.getComponent()).get_evento();
-         ve.set_evento(evento);
-         
-         ve.setVisible(true);
+
+    private void paneliMouseClicked(java.awt.event.MouseEvent evt) {
+
+        Ventana_Evento ve = new Ventana_Evento(this, true);
+        Evento evento = ((JPanelTransparente) evt.getComponent()).get_evento();
+        ve.set_evento(evento);
+
+        ve.setVisible(true);
     }
-    private void paneliMouseEntered(java.awt.event.MouseEvent evt, JPanelTransparente paneli)
-    {
+
+    private void paneliMouseEntered(java.awt.event.MouseEvent evt, JPanelTransparente paneli) {
         paneli.setColorSecundario(Color.cyan);
-        paneli.setSize(paneli.getSize().width+5, paneli.getSize().height+5);
+        paneli.setSize(paneli.getSize().width + 5, paneli.getSize().height + 5);
     }
-    private void paneliMouseExited(java.awt.event.MouseEvent evt, JPanelTransparente paneli)
-    {
-        paneli.setSize(paneli.getSize().width-5, paneli.getSize().height-5);
+
+    private void paneliMouseExited(java.awt.event.MouseEvent evt, JPanelTransparente paneli) {
+        paneli.setSize(paneli.getSize().width - 5, paneli.getSize().height - 5);
         paneli.setColorSecundario(Color.black);
     }
+
     /**
      * @param args the command line arguments
      */
     class MiEvento implements ActionListener {
 
-    public void actionPerformed(ActionEvent e) {
-
-
-      /*if (e.getSource().equals(botonGuardar)) {
-       
-        
-      }*/
+        public void actionPerformed(ActionEvent e) {
+            /*if (e.getSource().equals(botonGuardar)) {}*/
+        }
     }
-  }
+
     public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
@@ -481,7 +480,6 @@ public class GUI extends javax.swing.JFrame {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
                 new GUI().setVisible(true);
             }
@@ -507,7 +505,4 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton listar_contactos;
     private javax.swing.JPanel panel_eventos;
     // End of variables declaration//GEN-END:variables
-
- 	
- 
 }

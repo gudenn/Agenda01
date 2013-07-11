@@ -1,15 +1,9 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * Agregar_contacto.java
  *
  * Created on 28-may-2013, 14:27:14
  */
 //package agenda;
-
 //import Objetos.Persona;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -18,35 +12,40 @@ import javax.swing.JOptionPane;
  *
  * @author juanki
  */
- 
 public class Agregar_contacto extends javax.swing.JDialog {
 
-    /** Creates new form Agregar_contacto */
-     Operaciones operaciones;
-     private java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-     public Agregar_contacto(java.awt.Frame parent, boolean modal, Operaciones operacioness,Date fecha_por_defecto) {
+    /**
+     * Creates new form Agregar_contacto
+     */
+    Operaciones operaciones;
+    private java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+
+    public Agregar_contacto(java.awt.Frame parent, 
+                            boolean modal, Operaciones operacioness, 
+                            Date fecha_por_defecto) {
         super(parent, modal);
-        
-        this.operaciones =operacioness;
+
+        this.operaciones = operacioness;
         initComponents();
         init_componentes(fecha_por_defecto);
-        
+
     }
-    public void init_componentes(Date fecha_por_defecto)
-    {
-       
+
+    public void init_componentes(Date fecha_por_defecto) {
+
         fecha_cumpleaño.setDate(fecha_por_defecto);
     }
-    private void limpiar(){
-      
-       
+
+    private void limpiar() {
+
+
         campo_apellido.setText("");
         campo_nombre.setText("");
         fecha_cumpleaño.setDate(null);
         campo_email.setText("");
         campo_telefono.setText("");
     }
-   
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -181,25 +180,24 @@ public class Agregar_contacto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-        try{
+        try {
             int id = 10000 + (int) (Math.random() * 100000);
             String date = sdf.format(fecha_cumpleaño.getDate());
-            Persona persona = new Persona(""+id,campo_nombre.getText()
-                    ,campo_apellido.getText()
-                    ,date,campo_telefono.getText(),campo_email.getText());
-           
+            Persona persona = new Persona("" + id, campo_nombre.getText(), 
+                                            campo_apellido.getText(), date, 
+                                            campo_telefono.getText(), 
+                                            campo_email.getText());
             operaciones.guardarUsuario(persona);
             limpiar();
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(null,"Error:"+ex.getMessage()+"\nVerifique");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error:" + ex.getMessage() + "\nVerifique");
         }
         dispose();
 }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-      dispose();
+        dispose();
     }//GEN-LAST:event_cancelarActionPerformed
-
     /**
      * @param args the command line arguments
      */

@@ -1,15 +1,9 @@
-
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 /**
- *
+ * Clase Evento
+ * esta es la clase evento
  * @author SONY
  */
 public class Evento {
