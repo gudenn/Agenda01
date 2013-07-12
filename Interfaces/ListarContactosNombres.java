@@ -1,13 +1,16 @@
+package Interfaces;
+
 /**
  *
  * @author juanki
  */
+import Conexion.Operaciones;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.*;
 
-public class listar_contactos_nombres extends JDialog {
+public class ListarContactosNombres extends JDialog {
 
     private static final long serialVersionUID = 1L;
     private JTable table = new JTable();
@@ -19,7 +22,7 @@ public class listar_contactos_nombres extends JDialog {
     private JScrollPane scrollPane;
     Operaciones operaciones = new Operaciones();
 
-    public listar_contactos_nombres(java.awt.Frame parent, boolean modal) {
+    public ListarContactosNombres(java.awt.Frame parent, boolean modal) {
 
         super(parent, modal);
         iniciando_componentes();
@@ -90,7 +93,7 @@ public class listar_contactos_nombres extends JDialog {
         this.dispose();
     }
     /*public static void main(String[] args) {
-     listar_contactos_nombres frame = new listar_contactos_nombres();
+     ListarContactosNombres frame = new ListarContactosNombres();
      // frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
      frame.pack();
      frame.setBounds(150, 150,425,300);

@@ -1,4 +1,7 @@
-//import Objetos.Persona;
+package Conexion;
+
+import Clases.Persona;
+import Conexion.Conexion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -94,7 +97,7 @@ public class Operaciones extends Conexion {
 
     public ResultSet consultar_otra_bd(String sql, String ruta) {
 
-        conexion2 conexion_two = new conexion2(ruta);
+        Conexion2 conexion_two = new Conexion2(ruta);
         conexion_two.conectar();
         ResultSet resultado = null;
         try {

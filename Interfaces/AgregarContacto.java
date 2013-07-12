@@ -1,10 +1,12 @@
 /*
- * Agregar_contacto.java
+ * AgregarContacto.java
  *
  * Created on 28-may-2013, 14:27:14
  */
 //package agenda;
 //import Objetos.Persona;
+import Clases.Persona;
+import Conexion.Operaciones;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -12,15 +14,15 @@ import javax.swing.JOptionPane;
  *
  * @author juanki
  */
-public class Agregar_contacto extends javax.swing.JDialog {
+public class AgregarContacto extends javax.swing.JDialog {
 
     /**
-     * Creates new form Agregar_contacto
+     * Creates new form AgregarContacto
      */
     Operaciones operaciones;
     private java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
 
-    public Agregar_contacto(java.awt.Frame parent, 
+    public AgregarContacto(java.awt.Frame parent, 
                             boolean modal, Operaciones operacioness, 
                             Date fecha_por_defecto) {
         super(parent, modal);
@@ -115,19 +117,19 @@ public class Agregar_contacto extends javax.swing.JDialog {
                                 .addComponent(campo_telefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)))))
                 .addGap(67, 67, 67))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(cumpleaño)
-                .addContainerGap(247, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(email)
-                .addContainerGap(304, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(cancelar)
-                .addGap(45, 45, 45)
-                .addComponent(jBGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(cumpleaño))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(email))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(cancelar)
+                        .addGap(45, 45, 45)
+                        .addComponent(jBGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

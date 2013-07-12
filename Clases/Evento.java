@@ -1,3 +1,6 @@
+package Clases;
+
+import Conexion.Operaciones;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 

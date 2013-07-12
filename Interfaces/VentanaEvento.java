@@ -1,9 +1,14 @@
+package Interfaces;
+
 
 /**
  * Calendario
  *
  * @author equipo de programacion Agil
  */
+import Interfaces.ListarContactosNombres;
+import Conexion.Operaciones;
+import Interfaces.AgregarNota;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
@@ -28,7 +33,7 @@ public class VentanaEvento extends javax.swing.JDialog {
     private JLabel label3;
     private JLabel label4;
     private JLabel label5;
-    listar_contactos_nombres listarnombres;
+    ListarContactosNombres listarnombres;
     AgregarNota nuevanota;
     Operaciones operaciones = new Operaciones();
     private JButton agregarNombre;
@@ -71,7 +76,7 @@ public class VentanaEvento extends javax.swing.JDialog {
         botonGuardar = new JButton();
         botonCancelar = new JButton();
 
-        listarnombres = new listar_contactos_nombres(null, rootPaneCheckingEnabled);
+        listarnombres = new ListarContactosNombres(null, rootPaneCheckingEnabled);
         listarnombres.setBounds(150, 150, 300, 300);
         nuevanota = new AgregarNota(null, rootPaneCheckingEnabled);
         agregarNombre = new JButton();

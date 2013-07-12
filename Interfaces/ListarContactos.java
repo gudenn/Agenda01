@@ -1,23 +1,27 @@
+package Interfaces;
+
 /*
- * listar_contactos.java
+ * ListarContactos.java
  *
  * Created on 28-may-2013, 20:29:38
  */
 
+import Conexion.Operaciones;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
  * @author juanki
  */
-public class listar_contactos extends javax.swing.JDialog {
+public class ListarContactos extends javax.swing.JDialog {
 
     /**
-     * Creates new form listar_contactos
+     * Creates new form ListarContactos
      */
     Operaciones operaciones;
 
-    public listar_contactos(java.awt.Frame parent, 
+    public ListarContactos(java.awt.Frame parent, 
                             boolean modal, Operaciones operacones) {
         super(parent, modal);
         this.operaciones = operacones;

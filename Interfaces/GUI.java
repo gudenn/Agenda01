@@ -1,5 +1,15 @@
 //import Objetos.Persona;
-//import agenda.controlVersionJDialog;
+//import agenda.ControlVersionJDialog;
+import Interfaces.VentanaEvento;
+import Interfaces.ListarContactos;
+import Estilos.JPanelTransparente;
+import Clases.Evento;
+import Conexion.*;
+import Clases.*;
+import Estilos.*;
+import Interfaces.*;
+import Interfaces.ControlVersionJDialog;
+import Conexion.Operaciones;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,9 +37,9 @@ public class GUI extends javax.swing.JFrame {
 
     String actualizacion_fecha;
     Operaciones operaciones;
-    listar_contactos listarcontactos;
+    ListarContactos listarcontactos;
     VentanaEvento crear_evento;
-    Agregar_contacto formulario_agregar_contacto;
+    AgregarContacto formulario_agregar_contacto;
     ImageIcon ifondo = new ImageIcon();
     JLabel lfondo = new JLabel();
     private java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
@@ -39,7 +49,7 @@ public class GUI extends javax.swing.JFrame {
         operaciones = new Operaciones();
         operaciones.conectar();
         init_componentes();
-        controlVersionJDialog controlVersiones = new controlVersionJDialog(this, rootPaneCheckingEnabled);
+        ControlVersionJDialog controlVersiones = new ControlVersionJDialog(this, rootPaneCheckingEnabled);
         controlVersiones.setVisible(true);
 
     }
@@ -307,14 +317,14 @@ public class GUI extends javax.swing.JFrame {
 
     private void agregar_contactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_contactoActionPerformed
 
-        formulario_agregar_contacto = new Agregar_contacto(this, true, operaciones, calendario.getDate());
+        formulario_agregar_contacto = new AgregarContacto(this, true, operaciones, calendario.getDate());
         formulario_agregar_contacto.setLocation(this.location().x + 150, this.location().y + 80);
         formulario_agregar_contacto.setVisible(true);
         initComponents();//actualiza el panel
 }//GEN-LAST:event_agregar_contactoActionPerformed
 
     private void listar_contactosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listar_contactosActionPerformed
-        listarcontactos = new listar_contactos(this, true, operaciones);
+        listarcontactos = new ListarContactos(this, true, operaciones);
         listarcontactos.setLocation(this.location().x + 150, this.location().y + 80);
         listarcontactos.setVisible(true);
 }//GEN-LAST:event_listar_contactosActionPerformed
@@ -421,7 +431,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void paneliMouseClicked(java.awt.event.MouseEvent evt) {
 
-        Ventana_Evento ve = new Ventana_Evento(this, true);
+        EditarVentanaEvento ve = new EditarVentanaEvento(this, true);
         Evento evento = ((JPanelTransparente) evt.getComponent()).get_evento();
         ve.set_evento(evento);
 
@@ -482,7 +492,7 @@ public class GUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUI().setVisible(true);
-            }
+          }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

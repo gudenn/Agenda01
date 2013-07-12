@@ -1,7 +1,7 @@
 /*
  * Package Agenda
  */
-package agenda;
+package Clases;
 
 import javax.swing.JFrame;
 

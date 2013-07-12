@@ -1,3 +1,7 @@
+package Estilos;
+
+import Estilos.JPanelRound;
+import Clases.Evento;
 import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;

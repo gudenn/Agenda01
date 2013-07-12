@@ -1,4 +1,7 @@
 
+import Interfaces.ListarContactosNombres;
+import Clases.Evento;
+import Conexion.Operaciones;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -11,15 +14,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 /*
- * Ventana_Evento.java
+ * EditarVentanaEvento.java
  *
  * Created on 13-jun-2013, 15:03:58
  * @author juanki
  */
-public class Ventana_Evento extends javax.swing.JDialog {
+public class EditarVentanaEvento extends javax.swing.JDialog {
 
     /**
-     * Creates new form Ventana_Evento
+     * Creates new form EditarVentanaEvento
      */
     private java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat formatoDeFecha = new SimpleDateFormat("dd/MM/yyyy");
@@ -32,7 +35,7 @@ public class Ventana_Evento extends javax.swing.JDialog {
     private JScrollPane scrollPane;
     private JTable tabla_contactos;
 
-    public Ventana_Evento(java.awt.Frame parent, boolean modal) {
+    public EditarVentanaEvento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         init_componentes();
@@ -224,7 +227,7 @@ public class Ventana_Evento extends javax.swing.JDialog {
                             .addComponent(l_nombre))
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                            .addComponent(nombre)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -241,8 +244,7 @@ public class Ventana_Evento extends javax.swing.JDialog {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(minuto_ini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -254,21 +256,21 @@ public class Ventana_Evento extends javax.swing.JDialog {
                         .addGap(21, 21, 21)))
                 .addGap(138, 138, 138))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(l_contactos)
-                .addContainerGap(263, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(l_nota)
-                .addContainerGap(284, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(editar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(aceptar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cancelar)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(l_contactos))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(l_nota))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(editar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(aceptar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cancelar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -337,7 +339,7 @@ public class Ventana_Evento extends javax.swing.JDialog {
         editar_tabla();
     }//GEN-LAST:event_editarActionPerformed
     public void editar_tabla() {
-        listar_contactos_nombres listar = new listar_contactos_nombres(null, rootPaneCheckingEnabled);
+        ListarContactosNombres listar = new ListarContactosNombres(null, rootPaneCheckingEnabled);
         tabla_contactos = listar.get_tabla();
         scrollPane = new JScrollPane(tabla_contactos);
         panel_tabla = listar.get_panel_tabla();
@@ -414,7 +416,7 @@ public class Ventana_Evento extends javax.swing.JDialog {
      java.awt.EventQueue.invokeLater(new Runnable() {
 
      public void run() {
-     Ventana_Evento dialog = new Ventana_Evento(new javax.swing.JFrame(), true);
+     EditarVentanaEvento dialog = new EditarVentanaEvento(new javax.swing.JFrame(), true);
      dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
      public void windowClosing(java.awt.event.WindowEvent e) {

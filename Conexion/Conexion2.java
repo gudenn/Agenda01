@@ -1,3 +1,5 @@
+package Conexion;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author equipo de programacion Agil
  * @version 1.01
  */
-public class conexion2 {
+public class Conexion2 {
 
     Connection conexion2;
     Statement consulta2;
@@ -20,7 +22,7 @@ public class conexion2 {
     /**
      * Constructor del objeto de class Conexion
      */
-    public conexion2(String ruta) {
+    public Conexion2(String ruta) {
         /**
          * la Ruta para la base de datos
          */
