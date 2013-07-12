@@ -372,7 +372,7 @@ public class EditarVentanaEvento extends javax.swing.JDialog {
                     String date = sdf.format(fecha.getDate());
                     System.out.println(date + " " + hrs_ini + " " + hrs_fin);
                     Operaciones o = new Operaciones();
-                    o.borrar_evento(evet.get_id());
+                    o.borrarEvento(evet.get_id());
                     o.insertarDatos(nombre.getText(), date, hrs_ini, hrs_fin,
                                     note, tabla_contactos);
                     dispose();
@@ -397,7 +397,7 @@ public class EditarVentanaEvento extends javax.swing.JDialog {
                         String date = sdf.format(fecha.getDate());
                         System.out.println(date + " " + hrs_ini + " " + hrs_fin);
                         Operaciones o = new Operaciones();
-                        o.borrar_evento(evet.get_id());
+                        o.borrarEvento(evet.get_id());
                         o.insertarDatos(nombre.getText(), date, hrs_ini, hrs_fin, 
                                         note, tabla_contactos);
                         dispose();

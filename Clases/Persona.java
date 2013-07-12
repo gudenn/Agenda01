@@ -33,27 +33,27 @@ public class Persona {
         this.id = id;
     }
 
-    public String getapellido() {
+    public String getApellido() {
         return apellido;
     }
 
-    public void setapellido(String primer_apellido) {
+    public void setApellido(String primer_apellido) {
         this.apellido = apellido;
     }
 
-    public String getnombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    public void set_nombre(String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public String get_cumpleaño() {
+    public String getCumpleaño() {
         return cumpleaño;
     }
 
-    public void set_cumpleaño(String cumpleaño) {
+    public void setCumpleaño(String cumpleaño) {
         this.cumpleaño = cumpleaño;
     }
 
@@ -65,11 +65,11 @@ public class Persona {
         this.email = email;
     }
 
-    public String gettelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public String settelefono(String telefono) {
+    public String setTelefono(String telefono) {
         return this.telefono = telefono;
     }
 }

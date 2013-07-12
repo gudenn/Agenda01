@@ -34,7 +34,7 @@ public class Operaciones extends Conexion {
      * Borramos un Evento
      * @param id la clave de identificacion de un evento
      */
-    public void borrar_evento(int id) {
+    public void borrarEvento(int id) {
         insertar("delete from EVENTo where id_evento=" + id);
     }
 
@@ -42,7 +42,7 @@ public class Operaciones extends Conexion {
                               String hrsFin, String nota, JTable contactos) {
         int num;
         num = 10000 + (int) (Math.random() * 100000);
-        int id_persona = 0;
+        int idPersona = 0;
         insertar("insert into EVENTO (id_evento,nombre_evento,fecha,horaini,horafin,nota) "
                 + "values ('" + String.valueOf(num) + "','" + nombEven + "',"
                 + "'" + fecha + "','" + hrsIni + "','" + hrsFin + "','" + nota + "')");
@@ -51,9 +51,9 @@ public class Operaciones extends Conexion {
 
         for (int i = 0; i < contactos.getRowCount(); i++) {
             if ((Boolean) contactos.getModel().getValueAt(i, 2)) {
-                id_persona = (Integer) contactos.getValueAt(i, 0);
+                idPersona = (Integer) contactos.getValueAt(i, 0);
                 insertar("insert into evento_persona (id,id_evento,id_persona) "
-                        + "values (" + num + "," + num + "," + id_persona + ")");
+                        + "values (" + num + "," + num + "," + idPersona + ")");
             }
         }
 
@@ -95,14 +95,14 @@ public class Operaciones extends Conexion {
         return resultado;
     }
 
-    public ResultSet consultar_otra_bd(String sql, String ruta) {
+    public ResultSet consultarOtraBd(String sql, String ruta) {
 
-        Conexion2 conexion_two = new Conexion2(ruta);
-        conexion_two.conectar();
+        Conexion2 conexionTwo = new Conexion2(ruta);
+        conexionTwo.conectar();
         ResultSet resultado = null;
         try {
 
-            resultado = conexion_two.consulta2.executeQuery(sql);
+            resultado = conexionTwo.consulta2.executeQuery(sql);
 
         } catch (SQLException e) {
             System.out.println("Mensaje:" + e.getMessage());
@@ -140,10 +140,10 @@ public class Operaciones extends Conexion {
 
     public void guardarUsuario(Persona persona) {
         insertar("insert into Persona values(" + persona.getId()
-                + ",'" + persona.getnombre()
-                + "','" + persona.getapellido()
-                + "','" + persona.get_cumpleaño()
-                + "','" + persona.gettelefono()
+                + ",'" + persona.getNombre()
+                + "','" + persona.getApellido()
+                + "','" + persona.getCumpleaño()
+                + "','" + persona.getTelefono()
                 + "','" + persona.getEmail() + "')");
     }
 
@@ -181,7 +181,7 @@ public class Operaciones extends Conexion {
         }
     }
 
-    public void listar_Personas_en_evento(DefaultTableModel tableModel, int id_evento) {
+    public void listarPersonasEnEvento(DefaultTableModel tableModel, int id_evento) {
         ResultSet resultado = null;
         tableModel.setRowCount(0);
         tableModel.setColumnCount(0);
@@ -257,9 +257,9 @@ public class Operaciones extends Conexion {
         return tableModel;
     }
 
-    public ResultSet get_eventos(String fecha) {
-        String auxfecha = "'" + fecha + "'";
-        String sql = "select * from EVENTO where fecha=" + auxfecha;
+    public ResultSet getEventos(String fecha) {
+        String auxFecha = "'" + fecha + "'";
+        String sql = "select * from EVENTO where fecha=" + auxFecha;
         //System.out.println(sql);
         conectar();
         ResultSet resultado = null;
@@ -275,37 +275,37 @@ public class Operaciones extends Conexion {
         return resultado;
     }
 
-    public void actualizar_bd(String ruta) {
+    public void actualizarBd(String ruta) {
 
-        String sql_persona = "select * from persona";
-        String sql_evento = "select * from evento";
-        ResultSet resultado_persona = null;
-        ResultSet resultado_evento = null;
+        String sqlPersona = "select * from persona";
+        String sqlEvento = "select * from evento";
+        ResultSet resultadoPersona = null;
+        ResultSet resultadoEvento = null;
         try {
 
-            resultado_persona = consultar_otra_bd(sql_persona, ruta);
-            resultado_evento = consultar_otra_bd(sql_evento, ruta);
+            resultadoPersona = consultarOtraBd(sqlPersona, ruta);
+            resultadoEvento = consultarOtraBd(sqlEvento, ruta);
             insertar("delete from persona");
             insertar("delete from evento");
-            String nuevos_fila = "";
-            while (resultado_persona.next()) {
-                nuevos_fila = resultado_persona.getObject(1) + ","
-                        + "'" + resultado_persona.getString(2) + " "
-                        + "" + resultado_persona.getString(3) + "',"
-                        + "'" + resultado_persona.getString(4) + " "
-                        + "" + resultado_persona.getString(5) + "'";
+            String nuevosFila = "";
+            while (resultadoPersona.next()) {
+                nuevosFila = resultadoPersona.getObject(1) + ","
+                        + "'" + resultadoPersona.getString(2) + " "
+                        + "" + resultadoPersona.getString(3) + "',"
+                        + "'" + resultadoPersona.getString(4) + " "
+                        + "" + resultadoPersona.getString(5) + "'";
                 insertar("insert into persona(id,nombre,apellido) "
-                        + "values(" + nuevos_fila + ")");
+                        + "values(" + nuevosFila + ")");
             }
-            while (resultado_evento.next()) {
-                nuevos_fila = resultado_evento.getObject(1) + ","
-                             + "'" + resultado_evento.getString(2) + "','" 
-                             + resultado_evento.getString(3) + "','" 
-                             + resultado_evento.getString(4) + "','" 
-                             + resultado_evento.getString(5) + "'";
+            while (resultadoEvento.next()) {
+                nuevosFila = resultadoEvento.getObject(1) + ","
+                             + "'" + resultadoEvento.getString(2) + "','" 
+                             + resultadoEvento.getString(3) + "','" 
+                             + resultadoEvento.getString(4) + "','" 
+                             + resultadoEvento.getString(5) + "'";
                 insertar("insert into evento"
                         + "(id_evento,nombre_evento,fecha,horaini,horafin) "
-                        + "values(" + nuevos_fila + ")");
+                        + "values(" + nuevosFila + ")");
             }
 
         } catch (SQLException e) {

@@ -24,17 +24,17 @@ public class VentanaEvento extends javax.swing.JDialog {
 
     private java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
     private com.toedter.calendar.JDateChooser fecha;
-    private javax.swing.JComboBox hora_ini;
-    private javax.swing.JComboBox minuto_ini;
-    private javax.swing.JComboBox hora_fin;
-    private javax.swing.JComboBox minuto_fin;
+    private javax.swing.JComboBox horaIni;
+    private javax.swing.JComboBox minutoIni;
+    private javax.swing.JComboBox horaFin;
+    private javax.swing.JComboBox minutoFin;
     private JLabel label1;
     private JLabel label2;
     private JLabel label3;
     private JLabel label4;
     private JLabel label5;
-    ListarContactosNombres listarnombres;
-    AgregarNota nuevanota;
+    ListarContactosNombres listarNombres;
+    AgregarNota nuevaNota;
     Operaciones operaciones = new Operaciones();
     private JButton agregarNombre;
     private JButton agregarNota;
@@ -44,26 +44,26 @@ public class VentanaEvento extends javax.swing.JDialog {
     JPanel contenedor = new JPanel();
     private JTable contactos = new JTable();
 
-    public VentanaEvento(Date fecha_por_defecto, int hora_def, int min_def) {
+    public VentanaEvento(Date fechaPorDefecto, int horaDef, int minDef) {
 
         Toolkit tool = getToolkit();
         Dimension d = tool.getScreenSize();
         setModal(true);
         // setLayout(null);
         setBounds(0, 0, 350, 300);
-        iniciarComponentes(fecha_por_defecto, hora_def, min_def);
+        iniciarComponentes(fechaPorDefecto, horaDef, minDef);
         MiEvento evento = new MiEvento();
         MiEvento evento2 = new MiEvento();
         botonGuardar.addActionListener(evento);
-        hora_fin.addActionListener(evento2);
-        minuto_fin.addActionListener(evento);
+        horaFin.addActionListener(evento2);
+        minutoFin.addActionListener(evento);
         botonCancelar.addActionListener(evento);
         agregarNombre.addActionListener(evento);
         agregarNota.addActionListener(evento);
 
     }
 
-    private void iniciarComponentes(Date fecha_por_defecto, int hora_def, int min_def) {
+    private void iniciarComponentes(Date fechaPorDefecto, int horaDef, int minDef) {
         contenedor = new JPanel();
         contenedor.setBounds(0, 0, 350, 300);
         label1 = new JLabel();
@@ -76,9 +76,9 @@ public class VentanaEvento extends javax.swing.JDialog {
         botonGuardar = new JButton();
         botonCancelar = new JButton();
 
-        listarnombres = new ListarContactosNombres(null, rootPaneCheckingEnabled);
-        listarnombres.setBounds(150, 150, 300, 300);
-        nuevanota = new AgregarNota(null, rootPaneCheckingEnabled);
+        listarNombres = new ListarContactosNombres(null, rootPaneCheckingEnabled);
+        listarNombres.setBounds(150, 150, 300, 300);
+        nuevaNota = new AgregarNota(null, rootPaneCheckingEnabled);
         agregarNombre = new JButton();
         agregarNota = new JButton();
 
@@ -86,23 +86,23 @@ public class VentanaEvento extends javax.swing.JDialog {
 
         fecha = new JDateChooser();
 
-        hora_ini = new JComboBox();
+        horaIni = new JComboBox();
 
-        hora_fin = new JComboBox();
-        hora_fin.addItem("--");
+        horaFin = new JComboBox();
+        horaFin.addItem("--");
         for (int h = 0; h < 24; h++) {
-            hora_fin.addItem(h);
-            hora_ini.addItem(h);
+            horaFin.addItem(h);
+            horaIni.addItem(h);
         }
-        minuto_ini = new JComboBox();
-        minuto_fin = new JComboBox();
-        minuto_fin.addItem("--");
+        minutoIni = new JComboBox();
+        minutoFin = new JComboBox();
+        minutoFin.addItem("--");
         for (int m = 0; m < 60; m++) {
-            minuto_fin.addItem(m);
-            minuto_ini.addItem(m);
+            minutoFin.addItem(m);
+            minutoIni.addItem(m);
         }
-        hora_ini.setSelectedItem(hora_def);
-        minuto_ini.setSelectedItem(min_def);
+        horaIni.setSelectedItem(horaDef);
+        minutoIni.setSelectedItem(minDef);
         setLayout(null);
 
         label1.setText("Nombre:");
@@ -153,8 +153,8 @@ public class VentanaEvento extends javax.swing.JDialog {
         fecha.setVerifyInputWhenFocusTarget(true);
         Date d = new Date();
         fecha.setMinSelectableDate(d);
-        if (fecha_por_defecto.after(d)) {
-            fecha.setDate(fecha_por_defecto);
+        if (fechaPorDefecto.after(d)) {
+            fecha.setDate(fechaPorDefecto);
         } else {
             fecha.setDate(d);
         }
@@ -162,56 +162,56 @@ public class VentanaEvento extends javax.swing.JDialog {
 
         contenedor.add(fecha);
 
-        hora_ini.setBounds(120, 100, 50, 20);
+        horaIni.setBounds(120, 100, 50, 20);
 
-        contenedor.add(hora_ini);
-        minuto_ini.setBounds(180, 100, 50, 20);
-        contenedor.add(minuto_ini);
-        hora_fin.setBounds(120, 130, 50, 20);
+        contenedor.add(horaIni);
+        minutoIni.setBounds(180, 100, 50, 20);
+        contenedor.add(minutoIni);
+        horaFin.setBounds(120, 130, 50, 20);
 
-        contenedor.add(hora_fin);
-        minuto_fin.setBounds(180, 130, 50, 20);
-        contenedor.add(minuto_fin);
+        contenedor.add(horaFin);
+        minutoFin.setBounds(180, 130, 50, 20);
+        contenedor.add(minutoFin);
         contenedor.setLayout(null);
         add(contenedor);
 
     }
 
-    public void validar_y_guardar() {
+    public void validarYGuardar() {
 
         System.out.println(fecha.isValidateRoot());
         if (nombre.getText().trim().length() == 0) {
             JOptionPane.showMessageDialog(this, "El nombre del evento esta vacio");
         } else {
-            if (((hora_fin.getSelectedItem().equals("--")))) {
-                String hrs_ini = "" + hora_ini.getSelectedItem() + ":" 
-                                    + minuto_ini.getSelectedItem();
-                String hrs_fin = "" + hora_fin.getSelectedItem() + ":" 
-                                    + minuto_fin.getSelectedItem();
-                String nota = nuevanota.getNota();
+            if (((horaFin.getSelectedItem().equals("--")))) {
+                String hrs_ini = "" + horaIni.getSelectedItem() + ":" 
+                                    + minutoIni.getSelectedItem();
+                String hrs_fin = "" + horaFin.getSelectedItem() + ":" 
+                                    + minutoFin.getSelectedItem();
+                String nota = nuevaNota.getNota();
                 try {
                     String date = sdf.format(fecha.getDate());
                     System.out.println(date + " " + hrs_ini + " " + hrs_fin);
                     Operaciones o = new Operaciones();
                     o.insertarDatos(nombre.getText(), date, hrs_ini, hrs_fin, 
-                                    nota, listarnombres.get_tabla());
+                                    nota, listarNombres.get_tabla());
                     dispose();
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "la fecha no es valida");
 
                 }
             } else {
-                if (((int) hora_ini.getSelectedItem()) > ((int) hora_fin.getSelectedItem())) {
+                if (((int) horaIni.getSelectedItem()) > ((int) horaFin.getSelectedItem())) {
                     JOptionPane.showMessageDialog(this, 
                             "la hora de finalizacion del evento es "
                             + "menor que la hora de inicio");
                 } else {
 
-                    String hrs_ini = "" + hora_ini.getSelectedItem() 
-                                        + ":" + minuto_ini.getSelectedItem();
-                    String hrs_fin = "" + hora_fin.getSelectedItem()
-                                        + ":" + minuto_fin.getSelectedItem();
-                    String nota = nuevanota.getNota();
+                    String hrs_ini = "" + horaIni.getSelectedItem() 
+                                        + ":" + minutoIni.getSelectedItem();
+                    String hrs_fin = "" + horaFin.getSelectedItem()
+                                        + ":" + minutoFin.getSelectedItem();
+                    String nota = nuevaNota.getNota();
 
                     try {
                         String date = sdf.format(fecha.getDate());
@@ -239,7 +239,7 @@ public class VentanaEvento extends javax.swing.JDialog {
 
 
             if (e.getSource().equals(botonGuardar)) {
-                validar_y_guardar();
+                validarYGuardar();
 
             }
             if (e.getSource().equals(botonCancelar)) {
@@ -249,31 +249,31 @@ public class VentanaEvento extends javax.swing.JDialog {
 
             if (e.getSource().equals(agregarNombre)) {
 
-                listarnombres.setVisible(true);
+                listarNombres.setVisible(true);
             }
 
             if (e.getSource().equals(agregarNota)) {
 
-                nuevanota.setVisible(true);
+                nuevaNota.setVisible(true);
             }
 
-            if (e.getSource().equals(hora_fin)) {
-                if (hora_fin.getSelectedItem().equals("--")) {
+            if (e.getSource().equals(horaFin)) {
+                if (horaFin.getSelectedItem().equals("--")) {
 
-                    minuto_fin.setSelectedIndex(0);
+                    minutoFin.setSelectedIndex(0);
                 } else {
 
-                    if (minuto_fin.getSelectedItem().equals("--")) {
-                        minuto_fin.setSelectedIndex(1);
+                    if (minutoFin.getSelectedItem().equals("--")) {
+                        minutoFin.setSelectedIndex(1);
                     }
                 }
             }
-            if (e.getSource().equals(minuto_fin)) {
-                if (minuto_fin.getSelectedItem().equals("--")) {
-                    hora_fin.setSelectedIndex(0);
+            if (e.getSource().equals(minutoFin)) {
+                if (minutoFin.getSelectedItem().equals("--")) {
+                    horaFin.setSelectedIndex(0);
                 } else {
-                    if (hora_fin.getSelectedItem().equals("--")) {
-                        hora_fin.setSelectedIndex(1);
+                    if (horaFin.getSelectedItem().equals("--")) {
+                        horaFin.setSelectedIndex(1);
                     }
                 }
             }

@@ -60,7 +60,7 @@ public class GUI extends javax.swing.JFrame {
         actualizacion_fecha = fecha;
         jLabel2.setText(fecha);
 
-        listar_resp(operaciones.get_eventos(fecha));
+        listar_resp(operaciones.getEventos(fecha));
 
 
     }
@@ -89,7 +89,7 @@ public class GUI extends javax.swing.JFrame {
     }
 
     public void actualizar_bd(String ruta) {
-        operaciones.actualizar_bd(ruta);
+        operaciones.actualizarBd(ruta);
     }
 
     /**
@@ -301,7 +301,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel1.setText("Eventos");
         String fecha = sdf.format(calendario.getDate());
         jLabel2.setText(fecha);
-        listar_resp(operaciones.get_eventos(fecha));
+        listar_resp(operaciones.getEventos(fecha));
 }//GEN-LAST:event_Boton_buscarActionPerformed
 
     private void agregar_eventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_eventoActionPerformed
@@ -370,7 +370,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_importar_bdActionPerformed
 
     private void actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarActionPerformed
-        listar_resp(operaciones.get_eventos(actualizacion_fecha));
+        listar_resp(operaciones.getEventos(actualizacion_fecha));
     }//GEN-LAST:event_actualizarActionPerformed
 
     public void listar_resp(ResultSet matriz) {

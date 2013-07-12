@@ -47,7 +47,7 @@ public class Conexion {
       JOptionPane.showMessageDialog(null, e.getMessage());
     }
   }
-  public void conectar_a_otra_bd(String ruta) {
+  public void conectarAOtraBd(String ruta) {
     try {
       Class.forName("org.sqlite.JDBC");
     } catch (ClassNotFoundException e) {

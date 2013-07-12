@@ -123,7 +123,7 @@ public class ControlVersionJDialog extends javax.swing.JDialog {
       dispose();
   }//GEN-LAST:event_jButton1ActionPerformed
     public void actualizar_bd(String ruta) {
-        operaciones.actualizar_bd(ruta);
+        operaciones.actualizarBd(ruta);
         grabarVersion_bd();
     }
 

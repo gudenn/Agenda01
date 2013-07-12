@@ -14,12 +14,12 @@ public class Evento {
     private String nota;
     private String nombre;
     private String fecha;
-    private String[] hora_inicio= new String[2];
-    private String[] hora_finalizacion=new String[2];
-    private String hora_ini;
-    private String hora_fin;
-    private String minuto_fin;
-    private String minuto_ini;
+    private String[] horaInicio= new String[2];
+    private String[] horaFinalizacion=new String[2];
+    private String horaIni;
+    private String horaFin;
+    private String minutoFin;
+    private String minutoIni;
     private JTable contactos=new JTable();
     private Operaciones operaciones=new Operaciones();
     
@@ -29,14 +29,14 @@ public class Evento {
          this.id=id;
          this.nombre = nombre;
          this.fecha = fecha;
-         this.hora_inicio=hora_ini.split(":");
-         this.hora_finalizacion=hora_fin.split(":");
+         this.horaInicio=hora_ini.split(":");
+         this.horaFinalizacion=hora_fin.split(":");
          
-         this.hora_ini = hora_inicio[0];
-         this.hora_fin = hora_finalizacion[0];
-         this.minuto_ini=hora_inicio[1];
-         this.minuto_fin=hora_finalizacion[1];
-         operaciones.listar_Personas_en_evento((DefaultTableModel)contactos.getModel(), this.id);
+         this.horaIni = horaInicio[0];
+         this.horaFin = horaFinalizacion[0];
+         this.minutoIni=horaInicio[1];
+         this.minutoFin=horaFinalizacion[1];
+         operaciones.listarPersonasEnEvento((DefaultTableModel)contactos.getModel(), this.id);
     }
     public void setNombre(String nombre)
     {
@@ -48,19 +48,19 @@ public class Evento {
     }
     public void setHora_Ini(String hora_ini)
     {
-         this.hora_ini = hora_ini;
+         this.horaIni = hora_ini;
     }
     public void setHora_Fin(String hora_fin)
     {
-         this.hora_fin = hora_fin;
+         this.horaFin = hora_fin;
     }
     public void setMinuto_Fin(String minuto_fin)
     {
-         this.minuto_fin = minuto_fin;
+         this.minutoFin = minuto_fin;
     }
     public void setMinuto_Ini(String minuto_ini)
     {
-         this.minuto_ini = minuto_ini;
+         this.minutoIni = minuto_ini;
     }
     public void set_contactos(JTable contactos)
     {
@@ -88,20 +88,20 @@ public class Evento {
      }
      public String getHora_Ini()
      {
-         String[] hora=hora_ini.split(":");
+         String[] hora=horaIni.split(":");
          return hora[0];
      }
      public String getHora_Fin()
      {
-         return hora_fin;
+         return horaFin;
      }
      public String getMinuto_ini()
      {
-         return minuto_ini;
+         return minutoIni;
      }
      public String getMinuto_Fin()
      {
-         return minuto_fin;
+         return minutoFin;
      }
      public String get_nota()
      {
